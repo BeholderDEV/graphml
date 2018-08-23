@@ -44,9 +44,12 @@ p{
 span{
   color: #FFD123;
 }
-h1{
+h1,h2{
   font-family: 'Amatic SC', cursive;
   color: #0fcbaa;
+}
+.dropzone{
+  background: #000f24;
 }
 .mid-form{
   background-image: url('tijolinhos.png');
