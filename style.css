@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+html,
+body {
+  height: 100%;
+  background: #000f24;
+  
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.mid-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+p{
+  color: #efefef;
+}
+
+.btn{
+  font-size: 30px;
+  padding: 15px 50px;
+  font-family: 'Amatic SC', cursive;
+}
+.btn-primary{
+  background-color: #0fcbaa;
+  border: none;
+}
+
+.btn-primary:hover{
+  background-color: #FFD123;
+  border: none;
+}
+span{
+  color: #FFD123;
+}
+h1{
+  font-family: 'Amatic SC', cursive;
+  color: #0fcbaa;
+}
+.mid-form{
+  background-image: url('tijolinhos.png');
+}
