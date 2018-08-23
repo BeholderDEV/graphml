@@ -16,7 +16,7 @@ exports.runNeo4jCommand = async (command, values) => {
 };
 
 exports.testNeo4j = async () => {
-  const command = "CREATE (n:Person {name: $name }) RETURN n.name";
+  const command = "CREATE (n:Person {name: $name }) RETURN n";
   const values = {name: 'bob'};
   const result = await this.runNeo4jCommand(command, values);
   return result;
