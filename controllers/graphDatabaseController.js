@@ -3,11 +3,21 @@ const xmlParser = require('xml-js');
 
 const driver = neo4j.driver('bolt://hobby-npdiilmgppbfgbkeagkjfnbl.dbs.graphenedb.com:24786', neo4j.auth.basic(process.env.login, process.env.pass));
 
+exports.runNeo4jCommand = async (command, values) => {
+  try {
+    const session = driver.session();
+    const result = await session.run(command, values);
+    session.close();
+    return result.records;
+  } catch (err) {
+    console.log(err);
+    return 'error';
+  }
+};
+
 exports.testNeo4j = async () => {
-  const session = driver.session();
-  const result = await session.run("CREATE (n:Person {name:'Bob'}) RETURN n.name");
-  result.records.forEach((record) => {
-    console.log(record);
-  });
-  session.close();
+  const command = "CREATE (n:Person {name: $name }) RETURN n.name";
+  const values = {name: 'bob'};
+  const result = await this.runNeo4jCommand(command, values);
+  return result;
 };
