@@ -9,4 +9,9 @@ router.get('/', async (req, res) => {
   res.send('Joinha');
 });
 
+router.post('/', async (req, res) => {
+  console.log(req.body);
+  return req.body
+});
+
 module.exports = router;
