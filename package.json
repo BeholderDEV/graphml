@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "./node_modules/.bin/eslint controllers ./node_modules/.bin/eslint routes",
+    "lint-fix": "./node_modules/.bin/eslint controllers ./node_modules/.bin/eslint routes --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/BeholderDEV/graphml/issues"
   },
-  "homepage": "https://github.com/BeholderDEV/graphml#readme"
+  "homepage": "https://github.com/BeholderDEV/graphml#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.3",
+    "express": "~4.15.5",
+    "xml-js": "^1.6.7",
+    "neo4j-driver": "^1.6.3"
+  }
 }
