@@ -38,6 +38,8 @@ exports.testNeo4J = async () => {
   const values = {nome: 'satan'};
   const result = await this.runNeo4jCommand("MATCH (n:Curso) RETURN n", values);
   result.forEach(e => {
-    console.log(e);
+    const record = e.toObject();
+    console.log(record);
+    console.log(e.get('nome'));
   });
 };
