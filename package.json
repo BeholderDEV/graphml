@@ -24,7 +24,9 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "express": "~4.15.5",
-    "xml-js": "^1.6.7",
-    "neo4j-driver": "^1.6.3"
+    "express-xml-bodyparser": "^0.3.0",
+    "mime": "^2.3.1",
+    "neo4j-driver": "^1.6.3",
+    "xml-js": "^1.6.7"
   }
 }

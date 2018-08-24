@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curso nome = "Ciências da Computação">
+	<periodo num="1">
+		<disciplina nome="Introdução à Ciência da Computação" creditos = "2" codigo="2023">	
+			<descricao> Conceitos básicos de Ciência da Computação. As grandes áreas da Computação. O mercado de trabalho para o profissional da área. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Matemática Computacional" creditos = "2" codigo="2024">	
+			<descricao> Sistemas dicotômicos. Operações lógicas sobre proposições. Funções booleanas. Tabela verdade. Equivalência e implicação. Minimização de funções. Sistemas de numeração. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Álgebra Linear" creditos = "4" codigo="2025">	
+			<descricao> Matrizes. Determinantes. Sistemas Lineares. Auto-valores e auto-vetores. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Algorítmos e Programação" creditos = "8" codigo="4186">	
+			<descricao> Introdução à algoritmos e programação. Representação e manipulação de dados. Estruturas de controle de fluxo. Variáveis homogêneas. Modularização. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Sociedade, Ética e Meio Ambiente" creditos = "2" codigo="3642">	
+			<descricao> Ética das relações históricas entre sociedade, tecnologia e meio ambiente. Movimentos socioambientais. Direitos humanos e dos povos tradicionais. Tecnologias apropriadas, educomunicação e educação ambiental na transição para sociedades sustentáveis. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Trabalhos Acadêmico-Científicos" creditos = "2" codigo="2161">	
+			<descricao> Diretrizes de leitura. Resumo, fichamento e resenha. Relatório. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="2">
+		<disciplina nome="Algorítmos e Programação II" creditos = "8" codigo="4188">	
+			<descricao>Representação de tipos heterogêneos. Gerenciamento dinâmico de memória. Recursividade. Manipulação de arquivos.</descricao>		
+			<requisitos>
+				<disciplina codigo="4186"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Circuitos Digitais" creditos = "4" codigo="4187">	
+			<descricao>Álgebra Booleana.  Portas lógicas. Minimização de circuitos digitais. Circuitos combinacionais. Flip/Flop. Circuitos sequenciais síncronos e assíncronos. Registradores.</descricao>		
+			<requisitos>
+				<disciplina codigo="2023"/>
+				<disciplina codigo="2024"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Paradigmas de Linguagens de Programação" creditos = "2" codigo="5042">	
+			<descricao>Classificação dos paradigmas de programação. Paradigmas declarativos e imperativos.Programação funcional. Programação em lógica.</descricao>		
+			<requisitos>
+				<disciplina codigo="2023"/>
+				<disciplina codigo="2024"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Informática e a Sociedade" creditos = "2" codigo="3642">	
+			<descricao>Impactos de Tecnologias de Informação e Comunicação na sociedade. Legislação aplicada. Ética profissional.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Cálculo I" creditos = "4" codigo="1760">	
+			<descricao>Funções de uma variável. Limites e continuidade. Derivadas.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="3">
+		<disciplina nome="Programação I" creditos = "6" codigo="4191">	
+			<descricao>Modelagem orientada a objetos. Programação orientada a objetos.</descricao>		
+			<requisitos>
+				<disciplina codigo="4188"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Projeto de Sistemas Digitais" creditos = "4" codigo="4100">	
+			<descricao>Tecnologia de circuitos integrados. Linguagem de Descrição de Hardware. Projeto de circuitos combinacionais. Projetos de máquinas de estado finitos. Componentes de blocos operacionais. Projeto no nível de transferência entre registradores. Projeto de processadores.</descricao>		
+			<requisitos>
+				<disciplina codigo="4187"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Estruturas de Dados" creditos = "6" codigo="4190">	
+			<descricao>Introdução à estruturas de dados. Estruturas de dados lineares. Estruturas de dados não lineares. Ordenação e pesquisa.</descricao>		
+			<requisitos>
+				<disciplina codigo="4188"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Cálculo II" creditos = "4" codigo="1767">	
+			<descricao>Integrais. Aplicações da integral definida. Integração múltipla.</descricao>		
+			<requisitos>
+				<disciplina codigo="1760"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="4">
+		<disciplina nome="Programação II" creditos = "4" codigo="3641">	
+			<descricao>Projetos de sistemas para Web: modelo cliente-servidor, padrão MVC, arquitetura em camadas, protocolo http. Linguagens de marcação para Interface com o usuário. Servidores: Web, Web dinâmico e de aplicação. Linguagens e frameworks de programação para Web.</descricao>		
+			<requisitos>
+				<disciplina codigo="4191"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Arquitetura e Organização de Computadores I" creditos = "4" codigo="4189">	
+			<descricao>Introdução à arquitetura e organização de computadores. Conjunto de instruções e programação em linguagem de montagem. Aritmética computacional. Organização de processadores. Projeto e implementação de processadores.</descricao>		
+			<requisitos>
+				<disciplina codigo="4100"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Banco de Dados I" creditos = "4" codigo="1781">	
+			<descricao>Introdução à bancos de dados. Álgebra e modelagem relacional. Linguagem de manipulação e definição de dados. Arquitetura de sistemas de gerenciamento de bancos de dados. Transações. Integração entre software e bancos de dados.</descricao>		
+			<requisitos>
+				<disciplina codigo="4190"/>
+				<disciplina codigo="4191"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Engenharia de Software I" creditos = "4" codigo="0119">	
+			<descricao>Fundamentos da engenharia de software. Ciclo de vida de software. Métodos de desenvolvimento de software. Engenharia de requisitos.</descricao>		
+			<requisitos>
+				<disciplina codigo="4190"/>
+				<disciplina codigo="4191"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="5">
+		<disciplina nome="Programação III" creditos = "4" codigo="2168">	
+			<descricao>Introdução aos dispositivos móveis. Análise e projeto de aplicativos. Programação de dispositivos móveis. Manipulação de dados. Integração cliente-servidor. Tendências em dispositivos móveis.</descricao>		
+			<requisitos>
+				<disciplina codigo="3641"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Arquitetura e Organização de Computadores II" creditos = "4" codigo="4192">	
+			<descricao>Avaliação de desempenho. Processamento em pipeline. Sistemas de memória. Sistemas de entrada e saída. Arquiteturas paralelas. Tópicos avançados em arquitetura e organização de computadores.</descricao>		
+			<requisitos>
+				<disciplina codigo="4189"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Banco de Dados II" creditos = "4" codigo="1787">	
+			<descricao>Procedimentos armazenados e gatilhos. Otimização de bancos de dados. Controle de concorrência. Segurança e recuperação. Data Warehouse. Temas avançados em banco de dados.</descricao>		
+			<requisitos>
+				<disciplina codigo="1781"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Engenharia de Software II" creditos = "4" codigo="2169">	
+			<descricao>Arquitetura e projeto (design) de software. Gerência de configuração de software. Verificação e validação.</descricao>		
+			<requisitos>
+				<disciplina codigo="0119"/>
+				<disciplina codigo="1781"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Estatística" creditos = "4" codigo="1544">	
+			<descricao>Conceitos básicos. Estatística descritiva. Teoria das probabilidades. Distribuições de probabilidades. Estimativas. Teste de hipóteses. Relações entre variáveis.</descricao>		
+			<requisitos>
+				<disciplina codigo="2166"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="6">
+		<disciplina nome="Sistemas Operacionais" creditos = "4" codigo="2167">	
+			<descricao>Conceitos de sistemas operacionais. Processos de threads. Gerência de memória. Sistemas de arquivos. Entrada e saída. Impasses.</descricao>		
+			<requisitos>
+				<disciplina codigo="4192"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Processamento Digital de Imagens" creditos = "4" codigo="2173">	
+			<descricao>Fundamentos de imagens digitais. Percepção visual. Domínio espacial. Domínio de frequência. Segmentação. Análise de texturas. Morfologia matemática. Representação e descrição. Classificação. Reconhecimento de padrões.</descricao>		
+			<requisitos>
+				<disciplina codigo="4191"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Grafos" creditos = "4" codigo="4194">	
+			<descricao>Conceitos preliminares. Representação de grafos. Conexidade. Árvores. Planaridade. Coloração. Busca em grafos. Caminho crítico. Fluxo em redes.</descricao>		
+			<requisitos>
+				<disciplina codigo="2024"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Interação Humano-Computador" creditos = "4" codigo="6584">	
+			<descricao>Visão geral e fundamentos da Interação Humano-Computador. Design de interação: conceitos, processos e técnicas. Processamento da informação: abordagens teóricas para IHC. Usabilidade e a experiência do usuário. Planejamento e métodos de avaliação de IHC. Projeto de Interface centrado no humano.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Teoria da Computação I" creditos = "4" codigo="4195">	
+			<descricao>Linguagens regulares. Linguagens livres de contexto. Linguagens sensíveis ao contexto. Linguagens recursivas. Linguagens recursivamente enumeráveis. Decidibilidade.</descricao>		
+			<requisitos>
+				<disciplina codigo="4190"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="7">
+		<disciplina nome="Redes de Computadores I" creditos = "4" codigo="1803">	
+			<descricao>Evolução das Redes de Computadores. Arquitetura de redes. Introdução à Internet. Camada de aplicação. Camada de transporte.  Programação em sockets. Camada de rede.</descricao>		
+			<requisitos>
+				<disciplina codigo="2167"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Sistemas Embarcados" creditos = "4" codigo="4198">	
+			<descricao>Sistemas embarcados: definição, métricas e tecnologias. Arquiteturas de processadores para sistemas embarcados. Arquitetura de sistemas embarcados. Metodologias de projeto de sistemas embarcados. Projeto de sistemas embarcados.</descricao>		
+			<requisitos>
+				<disciplina codigo="2167"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Inteligência Artificial I" creditos = "4" codigo="1804">	
+			<descricao>Introdução à Inteligência Artificial. Modelagem e representação do conhecimento. Métodos de busca. Sistemas baseados em conhecimento. Algoritmos genéticos. Redes neurais artificiais.</descricao>		
+			<requisitos>
+				<disciplina codigo="4194"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Empreendedorismo" creditos = "4" codigo="3058">	
+			<descricao>O Empreendedor. Oportunidades e inovação. Validação de modelos de negócios inovadores. Modelos de negócios escaláveis e reutilizáveis. Captação de recursos.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Teoria da Computação II" creditos = "4" codigo="4196">	
+			<descricao>Análise de complexidade. Complexidade de problemas (classes de complexidade). Projeto de algoritmos. Algoritmos aproximados e heurísticas.</descricao>		
+			<requisitos>
+				<disciplina codigo="4194"/>
+				<disciplina codigo="4195"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="8">
+		<disciplina nome="Redes de Computadores II" creditos = "4" codigo="1809">	
+			<descricao>Camada de enlace.  Redes sem fio. Camada física. Projeto de redes. Gerência de redes. Segurança de redes.</descricao>		
+			<requisitos>
+				<disciplina codigo="1803"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Compiladores" creditos = "4" codigo="4197">	
+			<descricao>Introdução à compilação. Análise léxica. Análise sintática. Análise semântica. Geração de código intermediário. Otimização de código. Geração de código objeto. Especificação de uma linguagem de programação. Implementação de um compilador para uma máquina hipotética.</descricao>		
+			<requisitos>
+				<disciplina codigo="2167"/>
+				<disciplina codigo="4195"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Inteligência Artificial II" creditos = "4" codigo="4200">	
+			<descricao>Descoberta de Conhecimento em Bases de Dados. Sistemas Multiagentes. Aprendizado de Máquina.</descricao>		
+			<requisitos>
+				<disciplina codigo="1804"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Informática na Educação" creditos = "4" codigo="4201">	
+			<descricao>Fundamentos de Educação. Tecnologias educacionais. Pensamento computacional. Temas de pesquisa em Informática na Educação.</descricao>		
+			<requisitos>
+				<disciplina codigo="3642"/>
+				<disciplina codigo="2169"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Tópicos Especiais em Computação" creditos = "2" codigo="2176">	
+			<descricao>Conteúdos trabalhados de acordo com a temática atual da área.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Trabalho Técnico-Científico de Conclusão de Curso I" creditos = "2" codigo="4201">	
+			<descricao>Projetos na área tecnológica. Planos de trabalho.</descricao>		
+			<requisitos>
+				<disciplina codigo="1803"/>
+				<disciplina codigo="4198"/>
+				<disciplina codigo="1804"/>
+				<disciplina codigo="3058"/>
+				<disciplina codigo="4196"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="9">
+		<disciplina nome="Sistemas Distribuídos" creditos = "4" codigo="4199">	
+			<descricao>Caracterização de sistemas distribuídos. Arquiteturas e processos de sistemas distribuídos. Modelos de comunicação. Sistemas de nomes e de arquivos distribuídos. Objetos distribuídos. Desenvolvimento de aplicações distribuídas. Tópicos complementares.</descricao>		
+			<requisitos>
+				<disciplina codigo="1803"/>
+				<disciplina codigo="3641"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Computação Gráfica" creditos = "4" codigo="2174">	
+			<descricao>Introdução e conceitos básicos. APIs Gráficas. Iluminação, animação e utilização de modelos hierárquicos. Voxels. Visualização realística em 3D. Pipeline gráfico e processadores de placas de vídeo. Linguagens de shaders e implementação sobre modelos hierárquicos.</descricao>		
+			<requisitos>
+				<disciplina codigo="2173"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Gerência de Projetos de Software" creditos = "4" codigo="4202">	
+			<descricao>Estimativa e Medição de Software. Modelos de Gerência de Projetos de Software. Gerência de Riscos. Planejamento de Projetos. Acompanhamento e Controle de Projetos.</descricao>		
+			<requisitos>
+				<disciplina codigo="2169"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Trabalho Técnico-Científico de Conclusão de Curso II" creditos = "8" codigo="3647">	
+			<descricao>Fundamentação teórica. Projeto do produto.</descricao>		
+			<requisitos>
+				<disciplina codigo="4201"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="10">
+		<disciplina nome="Segurança em Sistemas Computacionais" creditos = "4" codigo="6389">	
+			<descricao>Conceitos fundamentais. Ameaças e ataques de segurança. Controles e medidas de segurança. Gestão de identidades digitais.</descricao>		
+			<requisitos>
+				<disciplina codigo="1809"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Melhoria de Processos de Software" creditos = "4" codigo="6874">	
+			<descricao>Modelagem de processos. Modelos de qualidade de processo de software. Avaliação e implementação de processos de software.</descricao>		
+			<requisitos>
+				<disciplina codigo="4202"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Eletiva" creditos = "4" codigo="7451">	
+			<descricao>De acordo com a disciplina ofertada.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Trabalho Técnico-Científico de Conclusão de Curso III" creditos = "8" codigo="3647">	
+			<descricao>Implementação do projeto. Testes e validação do produto.</descricao>		
+			<requisitos>
+				<disciplina codigo="3647"/>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<eletivas>
+		<disciplina nome="Ciência dos Dados" creditos = "4" codigo="7452">	
+			<descricao>Introdução à Ciência dos Dados. Técnicas e ferramentas para análise de grandes volumes de dados. Infraestrutura para tratamento de grandes volumes de dados.  Análise e visualização de grandes volumes de dados. Aplicações.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Comunicação Digital" creditos = "4" codigo="7453">	
+			<descricao>Aplicações de redes multimídia. Distribuição de fluxo de mídia. TV digital interativa. Voz sobre IP. Qualidade de Serviço.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Governança de Tecnologia da Informação" creditos = "4" codigo="7454">	
+			<descricao>Conceitos básicos de governança. Governança Corporativa e Governança de Tecnologia da Informação. Modelos e padrões de Governança de Tecnologia da Informação.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Internet das Coisas" creditos = "4" codigo="7455">	
+			<descricao>Internet das Coisas (IoT). Redes de Sensores Sem Fio. Protocolos de Comunicação para IoT. Computação na Nuvem para IoT. Big Data para IoT.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Interoperabilidade de Aplicações" creditos = "4" codigo="7456">	
+			<descricao>Visão geral de interoperabilidade. XML: arquitetura, bibliotecas e uso prático. Web services: arquitetura, implementações e uso prático.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Microcontroladores" creditos = "4" codigo="7457">	
+			<descricao>Arquitetura de organização de microcontroladores. Características técnicas. Instruções de máquina. Programação em alto nível. Interface com dispositivos periféricos. Padrões de comunicação síncrona e assíncrona. Projeto de implementação de sistemas baseados em microcontroladores.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Motores de Jogos" creditos = "4" codigo="7458">	
+			<descricao>Visão geral dos motores de jogos. Motores de jogos 2D. Motores de jogos 3D. Programação de scripts.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Programação Funcional e Lógica" creditos = "4" codigo="7459">	
+			<descricao>Conceitos de programação declarativa. Programação funcional. Programação lógica. Implementação.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Programação Paralela" creditos = "4" codigo="7460">	
+			<descricao>Modelos de computadores paralelos. Modelos de programação paralela. Projeto de programas paralelos. Análise de desempenho de algoritmos e programas paralelos.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Realidade Virtual" creditos = "4" codigo="7461">	
+			<descricao>Tecnologia imersiva e realidade aumentada. Uso da realidade virtual na criação e desenvolvimento de jogos e entretenimento digital.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Simulação Discreta de Sistemas" creditos = "4" codigo="7462">	
+			<descricao>Introdução à modelagem e simulação de sistemas. Funcionamento da simulação de sistemas. Tratamento de dados para simulação. Modelagem de sistemas através de simulação. Verificação e validação de modelos de simulação. Análise dos resultados da simulação. Projeto de experimentos.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Sistemas de Tempo Real" creditos = "4" codigo="7463">	
+			<descricao>Fundamentos de Sistemas de Tempo Real. Escalonamento de Tempo Real. Controle de acesso a recursos. Comunicação em Tempo Real. Sistemas Operacionais de Tempo Real.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Tolerância a Falhas" creditos = "4" codigo="7464">	
+			<descricao>Segurança de funcionamento. Aplicações de tolerância a falhas. Confiabilidade e disponibilidade. Técnicas de projeto. Tolerância a falhas em sistemas distribuídos e arquiteturas paralelas. Arquitetura de sistemas tolerantes a falhas.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+	</eletivas>
+	<optativas>
+		<disciplina nome="Língua Brasileira de Sinais" creditos = "4" codigo="7465">	
+			<descricao>Estrutura Linguística da Língua Brasileira se Sinais. Aprendizagem da língua portuguesa nas modalidades oral e escrita a partir de LIBRAS.</descricao>		
+			<requisitos>				
+			</requisitos>
+		</disciplina>
+	</optativas>
+</curso>

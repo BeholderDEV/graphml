@@ -27,4 +27,7 @@ app.use((req, res) => {
 const server = app.listen(port, () => {});
 console.log(`Connected on port ${port}`);
 
+const test = require('./controllers/graphDatabaseController');
+test.testNeo4J();
+
 module.exports = app;
