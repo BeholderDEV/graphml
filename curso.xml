@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<curso nome = "Ciências da Computação">
+<curso nome = "Ciência da Computação">
 	<periodo num="1">
 		<disciplina nome="Introdução à Ciência da Computação" creditos = "2" codigo="2023">	
 			<descricao> Conceitos básicos de Ciência da Computação. As grandes áreas da Computação. O mercado de trabalho para o profissional da área. </descricao>		
