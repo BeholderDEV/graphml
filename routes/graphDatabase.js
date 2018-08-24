@@ -4,7 +4,7 @@ const graphController = require('../controllers/graphDatabaseController');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const joinha = await graphController.testNeo4j();
+  const joinha = await graphController.testNeo4J();
   res.send('Joinha');
 });
 
