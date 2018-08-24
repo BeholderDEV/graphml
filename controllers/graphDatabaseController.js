@@ -16,14 +16,14 @@ exports.runNeo4jCommand = async (command, values) => {
 };
 
 exports.saveCurso = async (curso) => {
-  const command = "CREATE (c:Curso {nome: $nome }) RETURN c";
+  const command = "CREATE (n:Curso {nome: $nome }) RETURN n";
   const values = {name: curso};
   const result = await this.runNeo4jCommand(command, values);
   return result;
 };
 
 exports.savePeriodo = async (cursoName, periodoNum) => {
-  const command = "CREATE (p:Periodo {número: $num }) RETURN p";
+  const command = "CREATE (n:Periodo {número: $num }) RETURN n";
   const values = {num: periodoNum};
   const result = await this.runNeo4jCommand(command, values);
   
@@ -37,22 +37,12 @@ exports.joinCursoPeriodo = async (cursoName, periodoId) => {
 exports.testNeo4J = async () => {
   const values = {nome: 'satan'};
   const result = await this.runNeo4jCommand("MATCH (n:Curso) RETURN n", values);
-  result.forEach(e => {
-    const record = e.toObject();
-    try {
-      console.log(record.n.identity.low);
-    } catch (err) {
-      console.log(err);
-    }
-    // try {
-    //   console.log(record.n["node"]);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    // try {
-    //   console.log(record.n[0]);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  });
+  // result.forEach(e => {
+  //   const record = e.toObject();
+  //   try {
+  //     console.log(record.n.identity.low);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // });
 };
