@@ -39,16 +39,8 @@ exports.testNeo4J = async () => {
   const result = await this.runNeo4jCommand("MATCH (n:Curso) RETURN n", values);
   result.forEach(e => {
     const record = e.toObject();
-    console.log(record);
-    // console.log(record.n["Node"].identity["Integer"].low);
     try {
-      // console.log(record.n);
-      console.log(e.get('Node'));
-    } catch (err) {
-      console.log(err);
-    }
-    try {
-      console.log(record.n.identity);
+      console.log(record.n.identity.low);
     } catch (err) {
       console.log(err);
     }
