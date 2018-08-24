@@ -42,21 +42,25 @@ exports.testNeo4J = async () => {
     console.log(record);
     // console.log(record.n["Node"].identity["Integer"].low);
     try {
-      console.log(record.n);
+      // console.log(record.n);
+      console.log(record.n.node);
     } catch (err) {
       console.log(err);
     }
     try {
-      const n = e.get('n');
-      console.log(n.get('Node'));
+      console.log(record.n["Node"]);
     } catch (err) {
       console.log(err);
     }
-    // try {
-    //   const n = e.get('n');
-    //   console.log('3 - ' + record.n['node']);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      console.log(record.n["node"]);
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      console.log(record.n[0]);
+    } catch (err) {
+      console.log(err);
+    }
   });
 };
