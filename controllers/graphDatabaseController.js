@@ -40,6 +40,7 @@ exports.testNeo4J = async () => {
   result.forEach(e => {
     const record = e.toObject();
     console.log(record);
-    console.log(e.get('nome'));
+    console.log(record.n["Node"].identity["Integer"].low);
+    console.log(e.get('n'));
   });
 };
