@@ -1,0 +1,57 @@
+
+    circle {
+        fill: #55E6C1 !important;
+        fill-opacity: 1 !important;
+        stroke-width: 3;
+        stroke-opacity: 1 !important;
+        stroke: #58B19F !important;
+    }
+
+    circle.root {
+        stroke-width: 5;
+        fill: #55E6C1 !important;
+        fill-opacity: 1;
+    }
+
+    circle.award {
+        stroke: purple;
+        stroke-width: 1;
+    }
+
+    circle.person {
+        stroke: purple;
+        stroke-width: 1;
+    }
+    .selected circle{
+        fill-opacity: 1;
+        stroke-width: 4;
+        stroke: purple;
+    }
+
+    .edge {
+        stroke-linecap: round;
+        stroke: white !important;
+        stroke-opacity: 1 !important;
+        stroke-width: 2;
+    }
+
+    .edge.NOMINATED {
+        stroke: purple;
+    }
+
+    .edge.RECEIVED {
+        stroke-dasharray: 10,5,2,2,2,5;
+        stroke: purple;
+        stroke-opacity: 1;
+    }
+
+    .edge.ACTED_IN {
+        stroke: purple;
+    }
+
+    .edge.selected {
+        stroke: purple;
+        stroke-opacity: 1;
+        stroke-dasharray: none;
+    }
+  
