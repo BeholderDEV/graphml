@@ -18,11 +18,11 @@
   <script type="text/javascript">
 
     var config = {
-      dataSource: 'data/charlize.json',
+      dataSource: 'https://graphml.herokuapp.com/api/graph',
       forceLocked: true,
       linkDistance: function(){ return 40; },
 
-      nodeTypes: {"type":["movie", "award", "person"]},
+      nodeTypes: {"type":["curso", "periodo", "disciplina"]},
       caption: function(node){ 
           return node.caption; 
       }
