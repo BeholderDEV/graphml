@@ -1,6 +1,13 @@
 const neo4j = require('neo4j-driver').v1;
+let config;
 
-const driver = neo4j.driver('bolt://hobby-npdiilmgppbfgbkeagkjfnbl.dbs.graphenedb.com:24786', neo4j.auth.basic(process.env.login, process.env.pass));
+if (!process.env.heroku) {
+  config = require('../config.json');
+}
+const loginDB = process.env.login || config.login;
+const passDB = process.env.pass || config.pass;
+
+const driver = neo4j.driver('bolt://hobby-npdiilmgppbfgbkeagkjfnbl.dbs.graphenedb.com:24786', neo4j.auth.basic(loginDB, passDB));
 const wait = (time) => new Promise(resolve => setTimeout(resolve, time));
 
 class GraphDatabase {
@@ -110,22 +117,40 @@ class GraphDatabase {
       await this.createNodeWithRoot(nodes[i], 'Possui');
     }
   }
+
+  async startConnection(cb){
+    try {
+      this.session = driver.session();
+      const result = await cb();
+      return result;
+    } catch (err) {
+      console.log(err);
+      return 'error';
+    } finally {
+      this.session.close();
+    }
+  }
   
   async createGraph(nodes, deletePreviousNodes) {
     const relations = [];
-    try {
-        this.session = driver.session();
-        if (deletePreviousNodes) this.deleteNodes();
-        await this.createNodes(nodes, relations);
-        await this.createRelations(relations);
-        return 'success';
-    } catch (err) {
-        console.log(err);
-        return 'error creating graph';
-    } finally {
-        this.session.close();
-    }
+    const result = await this.startConnection(async() => {
+      if(deletePreviousNodes) this.deleteNodes();
+      await this.createNodes(nodes, relations);
+      await this.createRelations(relations);
+      return 'success';
+    });
+    return result;
   }
+
+  async getDatabase() {
+    const result = await this.startConnection(async () => {
+      const nodes = await this.runNeo4jCommand('MATCH (n) WITH collect( { caption: properties(n), type: labels(n), id: id(n) } ) AS nodes RETURN nodes');
+      const edges = await this.runNeo4jCommand('MATCH (a)-[r]->(b) WITH collect( { source: id(a), target: id(b), caption: type(r) } ) AS edges RETURN edges');
+      const joined = {nodes: nodes[0].get('nodes'), edges: edges[0].get('edges')};
+      return joined;
+    });
+    return result;
+  };
 }
 
 module.exports = GraphDatabase;

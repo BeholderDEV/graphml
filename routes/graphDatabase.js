@@ -15,8 +15,13 @@ router.post('/', async (req, res) => {
     const transformer = new Transformer(); 
     const graphController = new GraphController();
     const nodes = transformer.receiveXML(req.body);
-    const result = await graphController.createGraph(nodes, true);
-    res.send(JSON.stringify({ result }));
+    const resultCreate = await graphController.createGraph(nodes, true);
+    if (resultCreate === 'error') {
+      res.send(JSON.stringify({ resultCreate }));
+      return;
+    }
+    const result = await graphController.getDatabase();
+    res.send(JSON.stringify(result));
     return;
   }
   res.send(req.body);
