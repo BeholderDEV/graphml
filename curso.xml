@@ -284,7 +284,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="10">
+	<periodo num="10" >
 		<disciplina nome="Segurança em Sistemas Computacionais" creditos = "4" codigo="6389">	
 			<descricao>Conceitos fundamentais. Ameaças e ataques de segurança. Controles e medidas de segurança. Gestão de identidades digitais.</descricao>		
 			<requisitos>
@@ -302,14 +302,14 @@
 			<requisitos>				
 			</requisitos>
 		</disciplina>
-		<disciplina nome="Trabalho Técnico-Científico de Conclusão de Curso III" creditos = "8" codigo="3647">	
+		<disciplina nome="Trabalho Técnico-Científico de Conclusão de Curso III" creditos = "8" codigo="3648">	
 			<descricao>Implementação do projeto. Testes e validação do produto.</descricao>		
 			<requisitos>
 				<disciplina codigo="3647"/>
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<eletivas>
+	<eletivas nome="Disciplinas Eletivas">
 		<disciplina nome="Ciência dos Dados" creditos = "4" codigo="7452">	
 			<descricao>Introdução à Ciência dos Dados. Técnicas e ferramentas para análise de grandes volumes de dados. Infraestrutura para tratamento de grandes volumes de dados.  Análise e visualização de grandes volumes de dados. Aplicações.</descricao>		
 			<requisitos>				
@@ -376,7 +376,7 @@
 			</requisitos>
 		</disciplina>
 	</eletivas>
-	<optativas>
+	<optativas nome="Disciplina Optativa">
 		<disciplina nome="Língua Brasileira de Sinais" creditos = "4" codigo="7465">	
 			<descricao>Estrutura Linguística da Língua Brasileira se Sinais. Aprendizagem da língua portuguesa nas modalidades oral e escrita a partir de LIBRAS.</descricao>		
 			<requisitos>				
