@@ -1,6 +1,6 @@
 const express = require('express');
 const graphController = require('../controllers/graphDatabaseController');
-const xmlController = require('../controllers/xmlController');
+const Transformer = require('../controllers/XMLTransformer');
 
 const router = express.Router();
 
@@ -10,9 +10,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log(req.headers['content-type']);
+  const transformer = new Transformer(); 
   if (req.is('application/xml')) {
-    
+    const nodes = transformer.receiveXML(req.body);
+    // await graphController.deleteNodes();
+    const result = await graphController.createGraph(nodes);
+    res.send(result);
+    return;
   }
   res.send(req.body);
 });
