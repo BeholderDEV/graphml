@@ -18,9 +18,8 @@
       <h1 class="">GraphMl</h1>
       <h2>XML Transformation <span>Tabajara</span></h2>
       <p>Mussum Ipsum, cacilds vidis litro abertis. Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Suco de cevadiss deixa as pessoas mais interessantis. Quem manda na minha terra sou euzis!</p>
-      <form action="https://graphml.herokuapp.com/api/graph" class="dropzone mb-3 "></form>
-      <div class="btn btn-primary">Do it</div>
-      
+      <input id='xmlUpload' type='file' hidden onChange="handleXMLFileCharge()"/>
+      <input type="button"  value="Do it" class="btn btn-primary" onclick="handleXMLClick()"/>
     </div>
     
 
@@ -29,5 +28,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="javascripts/indexScript.js"></script>
   </body>
 </html>

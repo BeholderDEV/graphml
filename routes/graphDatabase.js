@@ -10,12 +10,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log(req.headers['content-type']);
   if (req.is('application/xml')) {
     const transformer = new Transformer(); 
     const graphController = new GraphController();
     const nodes = transformer.receiveXML(req.body);
     const result = await graphController.createGraph(nodes, true);
-    res.send(result);
+    res.send(JSON.stringify({ result }));
     return;
   }
   res.send(req.body);
