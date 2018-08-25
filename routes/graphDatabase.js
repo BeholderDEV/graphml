@@ -5,8 +5,9 @@ const Transformer = require('../controllers/XMLTransformer');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const joinha = await graphController.testNeo4J();
-  res.send('Joinha');
+  const graphController = new GraphController();
+  const result = await graphController.getDatabase();
+  res.send(JSON.stringify(result));
 });
 
 router.post('/', async (req, res) => {
