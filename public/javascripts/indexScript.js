@@ -4,31 +4,27 @@ const handleXMLClick = () => {
   $('#xmlUpload').click();
 };
 
-const handleXMLFileCharge = () => {
+const handleXMLFileCharge = async () => {
   const file = $('#xmlUpload').prop('files')[0];
-  const url = '/api/graph';
   if (file.type !== 'text/xml') {
     alert('Not a XML, you dummy');
     return;
   }
-  console.log('wait for it');
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/xml"
-    },
-    body: file
-  }).then(response => response.json()).then(json => checkResponse(json));
+  console.log('Receiving Database');
+  const response = await fetch('/api/graph', { method: 'POST', headers: { "Content-Type": "application/xml" }, body: file})
+                         .then(response => response.json());
+  checkResponse(response);
 };
 
 const checkResponse = (json) => {
   if (!!json.response && json.response === 'error') {
     alert('Deu merda');
   };
+  sessionStorage.setItem('graphData', JSON.stringify(json));
   $(location).attr('href', '/graph');
 };
 
-
-$(document).ready(function () {
-
+$(document).ready(() => {
+  $("#buttonUpload").on("click", handleXMLClick);
+  $("#xmlUpload").on("change", handleXMLFileCharge);
 });

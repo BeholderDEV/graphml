@@ -142,19 +142,6 @@ class GraphDatabase {
     return result;
   }
 
-  prepareGraphJSON(graph) {
-    graph.nodes.map((node) => {
-      node.caption = (node.caption.nome !== undefined) ? node.caption.nome : node.caption[Object.keys(node.caption)[0]];
-      node.type = node.type[0];
-      node.id = node.id.low;
-      return node;
-    });
-    graph.edges.map((edge) => {
-      edge.source = edge.source.low;
-      edge.target = edge.target.low;
-    });
-  }
-
   async getDatabase() {
     const result = await this.startConnection(async () => {
       const nodes = await this.runNeo4jCommand('MATCH (n) WITH collect( { caption: properties(n), type: labels(n), id: id(n) } ) AS nodes RETURN nodes');
@@ -163,7 +150,21 @@ class GraphDatabase {
       return joined;
     });
     return result;
-  };
+  }
+
+  prepareGraphJSON(graph) {
+    graph.nodes.map((node) => {
+      node.caption = (node.caption.nome !== undefined) ? node.caption.nome : node.caption[Object.keys(node.caption)[0]];
+      node.type = node.type[0];
+      if (node.type === 'curso') node.root = true;
+      node.id = node.id.low;
+      return node;
+    });
+    graph.edges.map((edge) => {
+      edge.source = edge.source.low;
+      edge.target = edge.target.low;
+    });
+  }
 }
 
 module.exports = GraphDatabase;
