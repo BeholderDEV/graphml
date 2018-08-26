@@ -1,20 +1,25 @@
 
-.menu{
+.menu {
     background-color: #010a16;
     padding: 20px 25px;
 }
-.label{
+.label {
     padding: 15px 20px;
     border-radius: 30px;
     background-color: #0fcbaa;
     color: #fff;
     margin-right: 10px;
 }
-.root{
+.root {
     background-color: #FFD123;
 }
-svg{
+svg {
     background-color: #000f24 !important;
+}
+
+.modal-title{
+    margin: 0 auto;
+    font-weight: bold;
 }
 
 /* circle {
@@ -32,9 +37,12 @@ svg{
     fill-opacity: 1;
 }  */
 
+/* .node text {
+    fill: rgb(190, 48, 48) !important;
+} */
 
 circle.award {
-    stroke: purple;
+    stroke: #010a16;
     stroke-width: 1;
 }
 

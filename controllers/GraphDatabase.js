@@ -144,7 +144,7 @@ class GraphDatabase {
 
   async getDatabase() {
     const result = await this.startConnection(async () => {
-      const nodes = await this.runNeo4jCommand('MATCH (n) WITH collect( { caption: properties(n), type: labels(n), id: id(n) } ) AS nodes RETURN nodes');
+      const nodes = await this.runNeo4jCommand('MATCH (n) WITH collect( { info: properties(n), type: labels(n), id: id(n) } ) AS nodes RETURN nodes');
       const edges = await this.runNeo4jCommand('MATCH (a)-[r]->(b) WITH collect( { source: id(a), target: id(b), caption: type(r) } ) AS edges RETURN edges');
       const joined = {nodes: nodes[0].get('nodes'), edges: edges[0].get('edges')};
       return joined;
@@ -154,7 +154,7 @@ class GraphDatabase {
 
   prepareGraphJSON(graph) {
     graph.nodes.map((node) => {
-      node.caption = (node.caption.nome !== undefined) ? node.caption.nome : node.caption[Object.keys(node.caption)[0]];
+      node.caption = (node.info.nome !== undefined) ? node.info.nome : node.info[Object.keys(node.info)[0]];
       node.type = node.type[0];
       if (node.type === 'curso') node.root = true;
       node.id = node.id.low;

@@ -11,11 +11,26 @@ const initializeGraph = async () => {
     linkDistance: () => { return 40; },
     nodeTypes: types,
     nodeStyle: nodeStyles,
+    nodeClick: (node) => {
+      showNodeModal(node._properties);
+      return node._properties.caption;
+    },
     caption: (node) => { 
         return node.caption; 
     }
   };
   alchemy = new Alchemy(config);
+};
+
+const showNodeModal = (node) => {
+  const infoKeys = Object.keys(node.info);
+  let info = '';
+  infoKeys.forEach(key => {
+    info += key[0].toUpperCase() + key.substring(1) + ': ' + node.info[key] + ' <br> ';
+  });
+  $('#modalTitle').text(node.type[0].toUpperCase() + node.type.substring(1));
+  $('#modalBody').empty().append('<p>' + info + '</p>');
+  $('#modalNode').modal('show'); 
 };
 
 const prepareNodeStyles = (nodes, types) => {
@@ -24,11 +39,14 @@ const prepareNodeStyles = (nodes, types) => {
     radius: 10, 
     color: "#faf", 
     borderColor: "#fff", 
+    // captionColor: "#B5651D",
+    captionSize: 2,
     borderWidth: 2,
   }};
   types.forEach((t, i) => {
     style[t] = {
       color: colors[i % colors.length],
+      
       selected: {
         color: "#FFFFFF",
         borderColor: "#349FE3"
