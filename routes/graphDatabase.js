@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
       return;
     }
     const result = await graphController.getDatabase();
+    graphController.prepareGraphJSON(result);
     res.send(JSON.stringify(result));
     return;
   }
