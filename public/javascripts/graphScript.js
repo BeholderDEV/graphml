@@ -1,12 +1,12 @@
 const initializeGraph = async () => {
   const graphData = await receiveGraphData();
-  console.log(graphData);
   const config = {
-    dataSource: graphData,
+    // dataSource: graphData,
+    dataSource: 'api/graph',
     forceLocked: true,
     linkDistance: () => { return 40; },
   
-    // nodeTypes: {"type":["curso", "periodo", "disciplina"]},
+    nodeTypes: {"type":["curso", "periodo", "disciplina"]},
     caption: (node) => { 
         return node.caption; 
     }
