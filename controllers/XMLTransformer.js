@@ -34,7 +34,7 @@ class XMLTransformer {
       if (!this.isArray(e) && !this.isObject(e)) {
         const testEmpty = e.trim();
         if (testEmpty !== '') {
-          newObj[attName] = e;
+          newObj.attributes[attName] = e;
         }
       };
     });

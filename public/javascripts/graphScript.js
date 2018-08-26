@@ -1,4 +1,4 @@
-const colors = ['#FFD123', '#0fcbaa', '#6EEB83', '#FF5714', '#1BE7FF', '#C823FF', '#FF0000', '#B5651D'];
+const colors = ['#0fcbaa', '#FFD123', '#6EEB83', '#FF5714', '#1BE7FF', '#C823FF', '#FF0000', '#B5651D'];
 
 const initializeGraph = async () => {
   const graphData = await receiveGraphData();
@@ -24,12 +24,13 @@ const initializeGraph = async () => {
 
 const showNodeModal = (node) => {
   const infoKeys = Object.keys(node.info);
-  let info = '';
+  let fullInfo = [];
   infoKeys.forEach(key => {
-    info += key[0].toUpperCase() + key.substring(1) + ': ' + node.info[key] + ' <br> ';
+    const info = key[0].toUpperCase() + key.substring(1) + ': ' + node.info[key] + ' <br> ';
+    (key === 'nome') ? fullInfo.unshift(info) : fullInfo.push(info);
   });
   $('#modalTitle').text(node.type[0].toUpperCase() + node.type.substring(1));
-  $('#modalBody').empty().append('<p>' + info + '</p>');
+  $('#modalBody').empty().append('<p>' + fullInfo.join('') + '</p>');
   $('#modalNode').modal('show'); 
 };
 
