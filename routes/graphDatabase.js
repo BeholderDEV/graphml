@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
     const nodes = transformer.receiveXML(req.body);
     const resultCreate = await graphController.createGraph(nodes, true);
     if (resultCreate === 'error') {
-      res.send(JSON.stringify({ resultCreate }));
+      res.send(JSON.stringify({ result: resultCreate }));
       return;
     }
     const result = await graphController.getDatabase();

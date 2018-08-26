@@ -8,21 +8,24 @@ const handleXMLFileCharge = () => {
   const file = $('#xmlUpload').prop('files')[0];
   const url = '/api/graph';
   if (file.type !== 'text/xml') {
+    alert('Not a XML, you dummy');
     return;
   }
+  console.log('wait for it');
   fetch(url, {
     method: 'POST',
     headers: {
       "Content-Type": "application/xml"
     },
     body: file
-  }).then(response => response.json())
-    .then((json) => {
-      console.log(json);
-      // windows.location.href = json.link;
-      // console.log(json.link);
-      // $(location).attr('href', json.link);
-    });
+  }).then(response => response.json()).then(json => checkResponse(json));
+};
+
+const checkResponse = (json) => {
+  if (!!json.response && json.response === 'error') {
+    alert('Deu merda');
+  };
+  $(location).attr('href', '/graph');
 };
 
 
