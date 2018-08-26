@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const graphController = new GraphController();
   const result = await graphController.getDatabase();
+  graphController.prepareGraphJSON(result);
   res.send(JSON.stringify(result));
 });
 
