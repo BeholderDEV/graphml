@@ -16,19 +16,22 @@
 svg{
     background-color: #000f24 !important;
 }
-circle {
+
+/* circle {
     fill: #0fcbaa !important;
     fill-opacity: 1 !important;
     stroke-width: 3;
     stroke-opacity: 1 !important;
     stroke: #0ea88c !important;
-}
+} */
 
-circle.root {
+/* circle.curso {
+    color: #fff !important;
     stroke-width: 5;
     fill: #0fcbaa !important;
     fill-opacity: 1;
-}
+}  */
+
 
 circle.award {
     stroke: purple;
