@@ -1,0 +1,58 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+  <link rel="stylesheet" href="stylesheets/graph.css"/>
+</head>
+<body>
+
+  
+
+  <div id="mynetwork"></div>
+  <script src="libs/alchemy/scripts/vendor.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    $.get( "api/graph", function( response ) {
+      
+      let dados = jQuery.parseJSON(response)
+      console.log(dados)
+
+      let nodes = []
+      for(let i = 0; i < dados.nodes.length; i++){
+        let texto
+        let cor = '#686de0'
+        if(dados.nodes[i].info.nome){
+          texto = dados.nodes[i].info.nome 
+        }else{
+          texto = dados.nodes[i].info.num
+          cor = '#eb4d4b'
+        }
+        nodes.push({id: dados.nodes[i].id, label: texto, color: cor})
+      }
+
+      let edges = []
+      for(let i = 0; i < dados.edges.length; i++){
+        edges.push({from: dados.edges[i].source, to: dados.edges[i].target})
+      }
+
+      var container = document.getElementById('mynetwork');
+      var data = {
+          nodes: nodes,
+          edges: edges
+      };
+      var options = {
+        layout: {
+          hierarchical: {
+            direction: 'LR'
+          }
+        }
+      };
+      var network = new vis.Network(container, data, options);
+    });
+    
+    
+  </script>
+
+  
+</body>
+</html>

@@ -12,4 +12,8 @@ router.get('/graph', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'views', 'graph.html'));
 });
 
+router.get('/vis', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '..', 'views', 'vis.html'));
+});
+
 module.exports = router;
