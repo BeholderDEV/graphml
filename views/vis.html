@@ -26,14 +26,7 @@
         }else{
           texto = dados.nodes[i].info.num
         }
-        if(dados.nodes[i].type === 'periodo'){
-          nodes.push({id: dados.nodes[i].id, label: texto, mass:25, group: 2, font: {size:50}})
-        }else if(dados.nodes[i].type === 'disciplina'){
-          nodes.push({id: dados.nodes[i].id, label: texto, mass: 5, group:3})
-        }else{
-          nodes.push({id: dados.nodes[i].id, label: texto, mass:50, shape: 'box', font: {size:75}, group:dados.nodes[i].type})
-        }
-        
+        nodes.push({id: dados.nodes[i].id, label: texto, mass:25, group:dados.nodes[i].type})
       }
 
       let edges = []
@@ -42,13 +35,12 @@
           let disciplina = nodes.filter(obj => {
             return obj.id === dados.edges[i].target
           })
-          if(disciplina[0].group === 3){
+          if(disciplina[0].group === 'disciplina'){
             let periodo = nodes.filter(obj => {
               return obj.id === dados.edges[i].source
             })
             //disciplina[0].level = periodo[0].label
             disciplina[0].group = periodo[0].label
-
             for(let j = 0; j < nodes.length; j++){            
               if(nodes[j].id == disciplina[0].id){
                 nodes[j] = disciplina[0]
@@ -66,6 +58,7 @@
           }
           
         }
+        
         if(dados.edges[i].caption === 'requisitos'){
           edges.push({from: dados.edges[i].target, to: dados.edges[i].source, arrows:'to'})
         }else{
@@ -73,6 +66,13 @@
         }
       }
       console.log(nodes)
+      // for(let i = 0; i < dados.edges.length; i++){
+      //   if(dados.edges[i].caption === 'requisitos'){
+      //     edges.push({from: dados.edges[i].target, to: dados.edges[i].source, arrows:'to', label:dados.edges[i].caption })
+      //   }else{
+      //     edges.push({from: dados.edges[i].source, to: dados.edges[i].target, arrows:'to', label:dados.edges[i].caption})
+      //   }
+      // }
       var container = document.getElementById('mynetwork');
       var data = {
           nodes: nodes,
@@ -92,23 +92,22 @@
             stabilization: {iterations: 150}
         },
         nodes: {
-          margin: 10,
+          shape: 'circle',
+          font: {size: 40},
           widthConstraint: {
-            maximum: 200
+            maximum: 200,
+            minimum: 200
           }
         },
         edges: {
-          width: 2,
+          width: 5,
           smooth: true,
           arrows: {
             to: {
               scaleFactor: 0.4
             }
           }
-        },
-        groups: {
-          
-        }       
+        }    
       };
       var network = new vis.Network(container, data, options);
     });
