@@ -2,6 +2,7 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" href="stylesheets/graph.css"/>
 </head>
 <body>
@@ -20,19 +21,18 @@
       let nodes = []
       for(let i = 0; i < dados.nodes.length; i++){
         let texto
-        let cor = '#686de0'
+
         if(dados.nodes[i].info.nome){
           texto = dados.nodes[i].info.nome 
         }else{
           texto = dados.nodes[i].info.num
-          cor = '#eb4d4b'
         }
-        nodes.push({id: dados.nodes[i].id, label: texto, color: cor})
+        nodes.push({id: dados.nodes[i].id, label: texto, group:dados.nodes[i].type})
       }
 
       let edges = []
       for(let i = 0; i < dados.edges.length; i++){
-        edges.push({from: dados.edges[i].source, to: dados.edges[i].target})
+        edges.push({from: dados.edges[i].source, to: dados.edges[i].target, arrows:'to'})
       }
 
       var container = document.getElementById('mynetwork');
@@ -43,9 +43,30 @@
       var options = {
         layout: {
           hierarchical: {
-            direction: 'LR'
+            direction: 'LR',
+            sortMethod: 'directed'
           }
-        }
+        },
+        edges: {
+          width: 2,
+          smooth: true,
+          arrows: {
+            to: {
+              scaleFactor: 0.4
+            }
+          }
+        },
+        groups: {
+          curso: {
+            color: {background:'#e74c3c',border:'#c0392b'}
+          },
+          periodo: {
+            color: {background:'#FFD123',border:'rgb(223, 181, 32)'}  
+          },
+          disciplina: {
+            color: {background:'#0fcbaa',border:'#0e9e84'}  
+          }
+        }        
       };
       var network = new vis.Network(container, data, options);
     });
