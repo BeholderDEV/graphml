@@ -16,7 +16,6 @@
     $.get( "api/graph", function( response ) {
       
       let dados = jQuery.parseJSON(response)
-      console.log(dados)
 
       let nodes = []
       for(let i = 0; i < dados.nodes.length; i++){
@@ -27,14 +26,54 @@
         }else{
           texto = dados.nodes[i].info.num
         }
-        nodes.push({id: dados.nodes[i].id, label: texto, group:dados.nodes[i].type})
+        if(dados.nodes[i].type === 'periodo'){
+          nodes.push({id: dados.nodes[i].id, label: texto, level: 2})
+        }else if(dados.nodes[i].type === 'disciplina'){
+          nodes.push({id: dados.nodes[i].id, label: texto, level:3})
+        }else{
+          nodes.push({id: dados.nodes[i].id, label: texto, level: -1, group:dados.nodes[i].type})
+        }
+        
       }
 
       let edges = []
       for(let i = 0; i < dados.edges.length; i++){
-        edges.push({from: dados.edges[i].source, to: dados.edges[i].target, arrows:'to'})
-      }
+        if(dados.edges[i].caption === 'Possui'){
+          let disciplina = nodes.filter(obj => {
+            return obj.id === dados.edges[i].target
+          })
+          if(disciplina[0].level === 3){
+            let periodo = nodes.filter(obj => {
+              return obj.id === dados.edges[i].source
+            })
+            disciplina[0].level = periodo[0].label
+            disciplina[0].group = periodo[0].label
 
+            for(let j = 0; j < nodes.length; j++){            
+              if(nodes[j].id == disciplina[0].id){
+                nodes[j] = disciplina[0]
+              }
+            }
+          }else{
+            let periodo = disciplina
+            
+            periodo[0].level = 0
+            periodo[0].group = periodo[0].label
+            for(let j = 0; j < nodes.length; j++){            
+              if(nodes[j].id == periodo[0].id){
+                nodes[j] = periodo[0]
+              }
+            }
+          }
+          
+        }
+        if(dados.edges[i].caption === 'requisitos'){
+          edges.push({from: dados.edges[i].target, to: dados.edges[i].source, arrows:'to'})
+        }else{
+          edges.push({from: dados.edges[i].source, to: dados.edges[i].target, arrows:'to'})
+        }
+      }
+      console.log(nodes)
       var container = document.getElementById('mynetwork');
       var data = {
           nodes: nodes,
@@ -43,8 +82,21 @@
       var options = {
         layout: {
           hierarchical: {
-            direction: 'LR',
-            sortMethod: 'directed'
+            levelSeparation: 300,
+            sortMethod: 'directed',
+            direction: 'UD'
+          }
+        },
+        physics: {
+          hierarchicalRepulsion: {
+            nodeDistance: 300
+          }
+        },
+        nodes: {
+          shape: 'box',
+          margin: 10,
+          widthConstraint: {
+            maximum: 200
           }
         },
         edges: {
@@ -66,7 +118,7 @@
           disciplina: {
             color: {background:'#0fcbaa',border:'#0e9e84'}  
           }
-        }        
+        }       
       };
       var network = new vis.Network(container, data, options);
     });
