@@ -21,7 +21,7 @@ const checkResponse = (json) => {
     alert('Deu merda');
   };
   sessionStorage.setItem('graphData', JSON.stringify(json));
-  $(location).attr('href', '/graph');
+  $(location).attr('href', '/vis');
 };
 
 $(document).ready(() => {
