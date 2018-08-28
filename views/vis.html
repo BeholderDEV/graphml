@@ -27,11 +27,11 @@
           texto = dados.nodes[i].info.num
         }
         if(dados.nodes[i].type === 'periodo'){
-          nodes.push({id: dados.nodes[i].id, label: texto, level: 2})
+          nodes.push({id: dados.nodes[i].id, label: texto, mass:25, group: 2, font: {size:50}})
         }else if(dados.nodes[i].type === 'disciplina'){
-          nodes.push({id: dados.nodes[i].id, label: texto, level:3})
+          nodes.push({id: dados.nodes[i].id, label: texto, mass: 5, group:3})
         }else{
-          nodes.push({id: dados.nodes[i].id, label: texto, level: -1, group:dados.nodes[i].type})
+          nodes.push({id: dados.nodes[i].id, label: texto, mass:50, shape: 'box', font: {size:75}, group:dados.nodes[i].type})
         }
         
       }
@@ -42,11 +42,11 @@
           let disciplina = nodes.filter(obj => {
             return obj.id === dados.edges[i].target
           })
-          if(disciplina[0].level === 3){
+          if(disciplina[0].group === 3){
             let periodo = nodes.filter(obj => {
               return obj.id === dados.edges[i].source
             })
-            disciplina[0].level = periodo[0].label
+            //disciplina[0].level = periodo[0].label
             disciplina[0].group = periodo[0].label
 
             for(let j = 0; j < nodes.length; j++){            
@@ -56,8 +56,7 @@
             }
           }else{
             let periodo = disciplina
-            
-            periodo[0].level = 0
+            //periodo[0].level = 0
             periodo[0].group = periodo[0].label
             for(let j = 0; j < nodes.length; j++){            
               if(nodes[j].id == periodo[0].id){
@@ -80,20 +79,19 @@
           edges: edges
       };
       var options = {
-        layout: {
-          hierarchical: {
-            levelSeparation: 300,
-            sortMethod: 'directed',
-            direction: 'UD'
-          }
-        },
         physics: {
-          hierarchicalRepulsion: {
-            nodeDistance: 300
-          }
+            forceAtlas2Based: {
+                gravitationalConstant: -26,
+                centralGravity: 0.005,
+                springLength: 230,
+                springConstant: 0.18
+            },
+            maxVelocity: 106,
+            solver: 'forceAtlas2Based',
+            timestep: 0.35,
+            stabilization: {iterations: 150}
         },
         nodes: {
-          shape: 'box',
           margin: 10,
           widthConstraint: {
             maximum: 200
@@ -109,15 +107,7 @@
           }
         },
         groups: {
-          curso: {
-            color: {background:'#e74c3c',border:'#c0392b'}
-          },
-          periodo: {
-            color: {background:'#FFD123',border:'rgb(223, 181, 32)'}  
-          },
-          disciplina: {
-            color: {background:'#0fcbaa',border:'#0e9e84'}  
-          }
+          
         }       
       };
       var network = new vis.Network(container, data, options);
