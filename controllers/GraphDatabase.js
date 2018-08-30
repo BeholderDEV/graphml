@@ -145,24 +145,46 @@ class GraphDatabase {
   async getDatabase() {
     const result = await this.startConnection(async () => {
       const nodes = await this.runNeo4jCommand('MATCH (n) WITH collect( { info: properties(n), type: labels(n), id: id(n) } ) AS nodes RETURN nodes');
-      const edges = await this.runNeo4jCommand('MATCH (a)-[r]->(b) WITH collect( { source: id(a), target: id(b), caption: type(r) } ) AS edges RETURN edges');
+      const edges = await this.runNeo4jCommand('MATCH (a)-[r]->(b) WITH collect( { source: id(a), target: id(b), label: type(r) } ) AS edges RETURN edges');
       const joined = {nodes: nodes[0].get('nodes'), edges: edges[0].get('edges')};
       return joined;
     });
     return result;
   }
 
+  prepareDisciplinaGroup(graph, node) {
+    const disciplinaEdges = graph.edges.filter(e => e.target.low === node.id && e.label === 'Possui');
+    const periodo = graph.nodes.filter(n => n.id === disciplinaEdges[0].source.low || n.id.low === disciplinaEdges[0].source.low);
+    node.group = periodo[0].info.num || periodo[0].type;
+  }
+
+  prepareLabel(node, maxLabelSize) {
+    let label = (node.info.nome !== undefined) ? node.info.nome : node.info[Object.keys(node.info)[0]];
+    if (label.length > maxLabelSize){
+      label = label.substring(0, maxLabelSize) + '...';
+    }
+    if(label.length <= maxLabelSize) {
+      const fillStr = new Array(maxLabelSize - label.length + 4).join(' ');
+      const fill = (label.length % 2 === 0) ? fillStr.substr(0, fillStr.length / 2) : fillStr.substr(0, fillStr.length / 2 + 1);
+      label = (label.length % 2 === 0) ? fill + label + fill : fill + label + fill.substr(0, fill.length - 1);
+    }
+    return label;
+  }
+
   prepareGraphJSON(graph) {
     graph.nodes.map((node) => {
-      node.caption = (node.info.nome !== undefined) ? node.info.nome : node.info[Object.keys(node.info)[0]];
+      node.label = this.prepareLabel(node, 21);
       node.type = node.type[0];
-      if (node.type === 'curso') node.root = true;
       node.id = node.id.low;
+      node.mass = 25;
+      node.group = node.type;
+      if (node.type === 'disciplina') this.prepareDisciplinaGroup(graph, node);
+      if (node.type === 'periodo') node.group = node.info.num;
       return node;
     });
     graph.edges.map((edge) => {
-      edge.source = edge.source.low;
-      edge.target = edge.target.low;
+      edge.from = edge.source.low;
+      edge.to = edge.target.low;
     });
   }
 }
