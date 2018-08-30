@@ -7,17 +7,58 @@
 </head>
 <body>
 
-  
+  <!-- Modal -->
+  <div class="modal fade" id="modalNode" tabindex="-1" role="dialog" aria-labelledby="modalNode" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalTitle">Modal title</h4>
+        </div>
+        <div class="modal-body" id='modalBody'></div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
 
   <div id="mynetwork"></div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js" charset="utf-8"></script>
   <script type="text/javascript">
+    const maxLabelSize = 21;
+    let originalNodes;
+    let originalEdges;
+
+    const showNodeModal = (node) => {
+      const infoKeys = Object.keys(node.info);
+      console.log(node);
+      let fullInfo = [];
+      infoKeys.forEach(key => {
+        const info = '<strong>' + key[0].toUpperCase() + key.substring(1) + '</strong>: ' + node.info[key] + ' <br> ';
+        (key === 'nome') ? fullInfo.unshift(info) : fullInfo.push(info);
+      });
+      $('#modalTitle').text(node.type[0].toUpperCase() + node.type.substring(1));
+      $('#modalBody').empty().append('<p>' + fullInfo.join('') + '</p>');
+      $('#modalNode').modal('show'); 
+    };
+
+    const findNodeById = (id) => {
+      console.log('entrou')
+      const node = originalNodes.filter(n => n.id === id);
+      return node[0];
+    };
+
     $.get( "api/graph", function( response ) {
       
       let dados = jQuery.parseJSON(response)
-
-      let nodes = []
+      
+      let nodes = [];
+      originalNodes = dados.nodes;
+      originalEdges = dados.edges;
       for(let i = 0; i < dados.nodes.length; i++){
         let texto
 
@@ -26,8 +67,19 @@
         }else{
           texto = dados.nodes[i].info.num
         }
+        if (texto.length > maxLabelSize){
+          texto = texto.substring(0, maxLabelSize) + '...';
+        }
+        if(texto.length <= maxLabelSize) {
+          const fillStr = new Array(maxLabelSize - texto.length + 4).join(' ');
+          const fill = (texto.length % 2 === 0) ? fillStr.substr(0, fillStr.length / 2) : fillStr.substr(0, fillStr.length / 2 + 1);
+          texto = (texto.length % 2 === 0) ? fill + texto + fill : fill + texto + fill.substr(0, fill.length - 1);
+        }
         nodes.push({id: dados.nodes[i].id, label: texto, mass:25, group:dados.nodes[i].type})
       }
+      // const fillStr = 'ABC';
+      // console.log(fillStr.substr(0, fillStr.length / 2));
+      // console.log(fillStr[fillStr.length / 2]);
 
       let edges = []
       for(let i = 0; i < dados.edges.length; i++){
@@ -91,6 +143,7 @@
             timestep: 0.35,
             stabilization: {iterations: 150}
         },
+        interaction: {hover:true},
         nodes: {
           shape: 'circle',
           scaling: {
@@ -100,11 +153,12 @@
               //     max: 200
               // }
           },
-          font: {size: 40},
-          widthConstraint: {
-            maximum: 250,
-            minimum: 250
-          }
+          // size: 100,
+          font: {size: 20},
+          // widthConstraint: {
+            // maximum: 250,
+            // minimum: 250
+          // }
         },
         edges: {
           width: 5,
@@ -117,6 +171,12 @@
         }    
       };
       var network = new vis.Network(container, data, options);
+      network.on("click", function (params) {
+        const nodeId = this.getNodeAt(params.pointer.DOM);
+        if (!!nodeId) {
+          showNodeModal(findNodeById(nodeId));
+        }
+      });
     });
     
     
