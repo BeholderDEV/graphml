@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <curso nome = "Ciência da Computação">
-	<periodo num="1">
+	<periodo nome="1º Período" num="1">
 		<disciplina nome="Introdução à Ciência da Computação" creditos = "2" codigo="2023">	
 			<descricao> Conceitos básicos de Ciência da Computação. As grandes áreas da Computação. O mercado de trabalho para o profissional da área. </descricao>		
 			<requisitos>
@@ -32,7 +32,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="2">
+	<periodo nome="2º Período" num="2">
 		<disciplina nome="Algorítmos e Programação II" creditos = "8" codigo="4188">	
 			<descricao>Representação de tipos heterogêneos. Gerenciamento dinâmico de memória. Recursividade. Manipulação de arquivos.</descricao>		
 			<requisitos>
@@ -64,7 +64,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="3">
+	<periodo nome="3º Período" num="3">
 		<disciplina nome="Programação I" creditos = "6" codigo="4191">	
 			<descricao>Modelagem orientada a objetos. Programação orientada a objetos.</descricao>		
 			<requisitos>
@@ -90,7 +90,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="4">
+	<periodo nome="4º Período" num="4">
 		<disciplina nome="Programação II" creditos = "4" codigo="3641">	
 			<descricao>Projetos de sistemas para Web: modelo cliente-servidor, padrão MVC, arquitetura em camadas, protocolo http. Linguagens de marcação para Interface com o usuário. Servidores: Web, Web dinâmico e de aplicação. Linguagens e frameworks de programação para Web.</descricao>		
 			<requisitos>
@@ -118,7 +118,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="5">
+	<periodo nome="5º Período" num="5">
 		<disciplina nome="Programação III" creditos = "4" codigo="2168">	
 			<descricao>Introdução aos dispositivos móveis. Análise e projeto de aplicativos. Programação de dispositivos móveis. Manipulação de dados. Integração cliente-servidor. Tendências em dispositivos móveis.</descricao>		
 			<requisitos>
@@ -151,7 +151,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="6">
+	<periodo nome="6º Período" num="6">
 		<disciplina nome="Sistemas Operacionais" creditos = "4" codigo="2167">	
 			<descricao>Conceitos de sistemas operacionais. Processos de threads. Gerência de memória. Sistemas de arquivos. Entrada e saída. Impasses.</descricao>		
 			<requisitos>
@@ -182,7 +182,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="7">
+	<periodo nome="7º Período" num="7">
 		<disciplina nome="Redes de Computadores I" creditos = "4" codigo="1803">	
 			<descricao>Evolução das Redes de Computadores. Arquitetura de redes. Introdução à Internet. Camada de aplicação. Camada de transporte.  Programação em sockets. Camada de rede.</descricao>		
 			<requisitos>
@@ -214,7 +214,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="8">
+	<periodo nome="8º Período" num="8">
 		<disciplina nome="Redes de Computadores II" creditos = "4" codigo="1809">	
 			<descricao>Camada de enlace.  Redes sem fio. Camada física. Projeto de redes. Gerência de redes. Segurança de redes.</descricao>		
 			<requisitos>
@@ -257,7 +257,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="9">
+	<periodo nome="9º Período" num="9">
 		<disciplina nome="Sistemas Distribuídos" creditos = "4" codigo="4199">	
 			<descricao>Caracterização de sistemas distribuídos. Arquiteturas e processos de sistemas distribuídos. Modelos de comunicação. Sistemas de nomes e de arquivos distribuídos. Objetos distribuídos. Desenvolvimento de aplicações distribuídas. Tópicos complementares.</descricao>		
 			<requisitos>
@@ -284,7 +284,7 @@
 			</requisitos>
 		</disciplina>
 	</periodo>
-	<periodo num="10" >
+	<periodo nome="10º Período" num="10" >
 		<disciplina nome="Segurança em Sistemas Computacionais" creditos = "4" codigo="6389">	
 			<descricao>Conceitos fundamentais. Ameaças e ataques de segurança. Controles e medidas de segurança. Gestão de identidades digitais.</descricao>		
 			<requisitos>

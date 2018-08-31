@@ -6,7 +6,7 @@ const handleXMLClick = () => {
 
 const handleXMLFileCharge = async () => {
   const file = $('#xmlUpload').prop('files')[0];
-  if (file.type !== 'text/xml') {
+  if (!!file && file.type !== 'text/xml') {
     alert('Not a XML, you dummy');
     return;
   }
@@ -25,6 +25,7 @@ const checkResponse = (json) => {
 };
 
 $(document).ready(() => {
+  document.getElementById("xmlUpload").value = "";
   $("#buttonUpload").on("click", handleXMLClick);
   $("#xmlUpload").on("change", handleXMLFileCharge);
 });
