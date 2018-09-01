@@ -163,10 +163,12 @@ class GraphDatabase {
     if (label.length > maxLabelSize){
       label = label.substring(0, maxLabelSize) + '...';
     }
-    if(label.length <= maxLabelSize) {
-      const fillStr = new Array(maxLabelSize - label.length + 4).join(' ');
-      const fill = (label.length % 2 === 0) ? fillStr.substr(0, fillStr.length / 2) : fillStr.substr(0, fillStr.length / 2 + 1);
-      label = (label.length % 2 === 0) ? fill + label + fill : fill + label + fill.substr(0, fill.length - 1);
+    if(label.length < maxLabelSize) {
+      const fillStr = new Array(Math.floor(maxLabelSize * 1.55) - label.length + 4).join(' ');
+      const magicalNumber = Math.floor(maxLabelSize * 1.55) - label.length + 4;
+      const evenCheck = (magicalNumber % 2 === 0) ? 0 : 1;
+      const fill = (evenCheck) ? fillStr.substr(0, fillStr.length / 2) : fillStr.substr(0, fillStr.length / 2 + 1);
+      label = (evenCheck) ? fill + label + fill : fill + label + fill.substr(0, fill.length - 1);
     }
     return label;
   }

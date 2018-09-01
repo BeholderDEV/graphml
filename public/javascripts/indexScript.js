@@ -5,6 +5,12 @@ const dim = (bool) => {
   document.getElementById('dimmer').style.display=(bool?'block':'none');
 }
 
+const goToInitialState = () => {
+  dim(false);
+  $('#loader').hide();
+  document.getElementById("xmlUpload").value = "";
+};
+
 const handleXMLClick = () => {
   $('#xmlUpload').click();
 };
@@ -18,15 +24,20 @@ const handleXMLFileCharge = async () => {
   dim(true);
   $('#loader').show();
   console.log('Receiving Database');
-  const response = await fetch('/api/graph', { method: 'POST', headers: { "Content-Type": "application/xml" }, body: file})
-                         .then(response => response.json());
-  checkResponse(response);
+  try {
+    const response = await fetch('/api/graph', { method: 'POST', headers: { "Content-Type": "application/xml" }, body: file})
+                           .then(response => response.json());
+    checkResponse(response);
+  } catch (err) {
+    goToInitialState();
+    alert('Error in XML');
+  }
 };
 
 const checkResponse = (json) => {
+  console.log('abc');
   if (!!json.response && json.response === 'error') {
-    dim(false);
-    $('#loader').hide();
+    goToInitialState();
     alert('Deu merda');
     return;
   }
@@ -35,7 +46,7 @@ const checkResponse = (json) => {
 };
 
 $(document).ready(() => {
-  document.getElementById("xmlUpload").value = "";
+  goToInitialState();
   $("#buttonUpload").on("click", handleXMLClick);
   $("#xmlUpload").on("change", handleXMLFileCharge);
 });

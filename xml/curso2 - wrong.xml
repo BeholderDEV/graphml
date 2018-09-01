@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<cuso nome = "Ciência da Computação">
+	<periodo num="1">
+		<disciplina nome="Introdução à Ciência da Computação" creditos = "2" codigo="2023">	
+			<descricao> Conceitos básicos de Ciência da Computação. As grandes áreas da Computação. O mercado de trabalho para o profissional da área. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Matemática Computacional" creditos = "2" codigo="2024">	
+			<descricao> Sistemas dicotômicos. Operações lógicas sobre proposições. Funções booleanas. Tabela verdade. Equivalência e implicação. Minimização de funções. Sistemas de numeração. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Álgebra Linear" creditos = "4" codigo="2025">	
+			<descricao> Matrizes. Determinantes. Sistemas Lineares. Auto-valores e auto-vetores. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Algorítmos e Programação" creditos = "8" codigo="4186">	
+			<descricao> Introdução à algoritmos e programação. Representação e manipulação de dados. Estruturas de controle de fluxo. Variáveis homogêneas. Modularização. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Sociedade, Ética e Meio Ambiente" creditos = "2" codigo="3642">	
+			<descricao> Ética das relações históricas entre sociedade, tecnologia e meio ambiente. Movimentos socioambientais. Direitos humanos e dos povos tradicionais. Tecnologias apropriadas, educomunicação e educação ambiental na transição para sociedades sustentáveis. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Trabalhos Acadêmico-Científicos" creditos = "2" codigo="2161">	
+			<descricao> Diretrizes de leitura. Resumo, fichamento e resenha. Relatório. </descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+	</periodo>
+	<periodo num="2">
+		<disciplina nome="Algorítmos e Programação II" creditos = "8" codigo="4188">	
+			<descricao>Representação de tipos heterogêneos. Gerenciamento dinâmico de memória. Recursividade. Manipulação de arquivos.</descricao>		
+			<requisitos>
+				<disciplina codigo="4186"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Circuitos Digitais" creditos = "4" codigo="4187">	
+			<descricao>Álgebra Booleana.  Portas lógicas. Minimização de circuitos digitais. Circuitos combinacionais. Flip/Flop. Circuitos sequenciais síncronos e assíncronos. Registradores.</descricao>		
+			<requisitos>
+				<disciplina codigo="2023"/>
+				<disciplina codigo="2024"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Paradigmas de Linguagens de Programação" creditos = "2" codigo="5042">	
+			<descricao>Classificação dos paradigmas de programação. Paradigmas declarativos e imperativos.Programação funcional. Programação em lógica.</descricao>		
+			<requisitos>
+				<disciplina codigo="2023"/>
+				<disciplina codigo="2024"/>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Informática e a Sociedade" creditos = "2" codigo="3642">	
+			<descricao>Impactos de Tecnologias de Informação e Comunicação na sociedade. Legislação aplicada. Ética profissional.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+		<disciplina nome="Cálculo I" creditos = "4" codigo="1760">	
+			<descricao>Funções de uma variável. Limites e continuidade. Derivadas.</descricao>		
+			<requisitos>
+			</requisitos>
+		</disciplina>
+	</periodo>
+</curso>
