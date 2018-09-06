@@ -5,17 +5,20 @@ body{
     background-color: #010a16;
     padding: 20px 25px;
 }
-.label {
-    padding: 15px 20px;
-    border-radius: 30px;
-    background-color: #0fcbaa;
-    color: #fff;
-    margin-right: 10px;
+
+
+.upper-menu{
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    background: transparent;
+    padding: 10px 20px
 }
+
 .root {
     background-color: #FFD123;
 }
-svg {
+#mynetwork > svg {
     background-color: #000f24 !important;
 }
 
@@ -24,24 +27,7 @@ svg {
     font-weight: bold;
 }
 
-/* circle {
-    fill: #0fcbaa !important;
-    fill-opacity: 1 !important;
-    stroke-width: 3;
-    stroke-opacity: 1 !important;
-    stroke: #0ea88c !important;
-} */
 
-/* circle.curso {
-    color: #fff !important;
-    stroke-width: 5;
-    fill: #0fcbaa !important;
-    fill-opacity: 1;
-}  */
-
-/* .node text {
-    fill: rgb(190, 48, 48) !important;
-} */
 
 circle.award {
     stroke: #010a16;

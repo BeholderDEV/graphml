@@ -42,7 +42,7 @@ const checkResponse = (json) => {
     return;
   }
   sessionStorage.setItem('graphData', JSON.stringify(json));
-  $(location).attr('href', '/vis');
+  $(location).attr('href', '/graph');
 };
 
 $(document).ready(() => {

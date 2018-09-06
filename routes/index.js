@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
-router.get('/vis', (req, res, next) => {
+router.get('/graph', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'views', 'vis.html'));
 });
 

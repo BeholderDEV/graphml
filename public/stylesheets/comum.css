@@ -1,0 +1,16 @@
+.btn{    
+    font-family: 'Amatic SC', cursive;
+}
+.btn-lg{
+    font-size: 30px;
+    padding: 15px 50px;
+}
+.btn-primary{
+    background-color: #0fcbaa;
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: #FFD123;
+    border: none;
+}

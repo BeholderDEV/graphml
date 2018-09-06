@@ -11,16 +11,74 @@
     <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
     <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/comum.css"/>
+    <style>
+      .spinner {
+        position: absolute;
+        left: 48%;
+        width: 70px;
+        text-align: center;
+        z-index: 105;
+      }
+
+      .spinner > div {
+        width: 18px;
+        height: 18px;
+        background-color: #fff;
+        border-radius: 100%;
+        display: inline-block;
+        -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        z-index: 105; 
+      }
+      .bounce1 {
+        background-color: #0fcbaa !important;
+      }
+      .bounce3 {
+        background-color: #9549A6 !important;
+      }
+      .bounce2 {
+        background-color: #FFD123 !important;
+      }
+      .spinner .bounce1 {
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+
+      .spinner .bounce2 {
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+
+      @-webkit-keyframes sk-bouncedelay {
+        0%, 80%, 100% { -webkit-transform: scale(0) }
+        40% { -webkit-transform: scale(1.0) }
+      }
+
+      @keyframes sk-bouncedelay {
+        0%, 80%, 100% { 
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        } 40% { 
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+        }
+      }
+    </style>
   </head>
   <body class="text-center">
-    <div id="loader"></div>
+    <div class="spinner" id='loader'>
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
     <div id="dimmer"></div> 
     <div class="mid-form">
       <h1 class="">GraphMl</h1>
       <h2>XML Transformation <span>Tabajara</span></h2>
       <p>Mussum Ipsum, cacilds vidis litro abertis. Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Suco de cevadiss deixa as pessoas mais interessantis. Quem manda na minha terra sou euzis!</p>
       <input id='xmlUpload' type='file' hidden/>
-      <input id='buttonUpload' type="button" value="Do it" class="btn btn-primary" />
+      <input id='buttonUpload' type="button" value="Do it" class="btn btn-primary btn-lg" />
     </div>
 
     <!-- Optional JavaScript -->
