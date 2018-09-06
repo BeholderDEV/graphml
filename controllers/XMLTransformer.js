@@ -72,7 +72,7 @@ class XMLTransformer {
 
   createLinkTag(rootTag, child, link) {
     const childObj = {};
-    childObj[child.type] = {codigo: child.id};
+    childObj[child.type] = {codigo: child.info.codigo || child.id};
     const currentAttr = rootTag[link.label]
     rootTag[link.label] = (!!currentAttr) ? [...currentAttr, childObj] : [childObj];
   }

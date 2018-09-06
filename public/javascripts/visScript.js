@@ -83,7 +83,7 @@ const prepareGraph = (graph) => {
       smooth: true,
       arrows: {
         to: {
-          enabled: true, scaleFactor: 1, type:'arrow'
+          enabled: true, scaleFactor: 1.5, type:'arrow'
         }
       }
     }    

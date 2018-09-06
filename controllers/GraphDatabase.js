@@ -16,6 +16,10 @@ class GraphDatabase {
     this.session;
   }
 
+  isArray(a) {
+    return (!!a) && (a.constructor === Array);
+  }
+
   async runNeo4jCommand(command, values) {
     try {
         const result = await this.session.run(command, values);
@@ -68,6 +72,7 @@ class GraphDatabase {
   }
   
   async relateNodes(node1, node2, relationName) {
+
     let command = 'MATCH (n:' + node1.name + ' {';
     command = this.concateAttributes(command, node1.attributes, 0) + '}) MATCH (n2:' + node2.name + ' {';
     command = this.concateAttributes(command, node2.attributes, 1) + '}) MERGE (n)-[rel:' + relationName + ']->(n2) return rel';
@@ -156,6 +161,7 @@ class GraphDatabase {
     const disciplinaEdges = graph.edges.filter(e => e.target.low === node.id && e.label === 'Possui');
     const periodo = graph.nodes.filter(n => n.id === disciplinaEdges[0].source.low || n.id.low === disciplinaEdges[0].source.low);
     node.group = periodo[0].info.num || periodo[0].type;
+    if (this.isArray(node.group)) node.group = node.group[0];
   }
 
   prepareLabel(node, maxLabelSize) {
