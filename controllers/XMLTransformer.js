@@ -79,13 +79,10 @@ class XMLTransformer {
 
   connectTwoTags(rootTag, childTag, childTagName) {
     const currentAttr = rootTag[childTagName];
-    console.log('Connect ' + childTagName);
-    console.log('Connect ' + JSON.stringify(rootTag));
     rootTag[childTagName] = (!!currentAttr) ? [...currentAttr, childTag]: [childTag];
   }
 
   readRelatedNodesFromNode(node, nodeTag, json) {
-    console.log('ABC')
     const nodesToVisite = json.edges.filter(e => node.id === e.from);
     nodesToVisite.forEach(n => {
       const id = n.to;
@@ -115,14 +112,16 @@ class XMLTransformer {
     const tagInfo = {};
     keys.forEach(k => tagInfo[k] = obj.info[k]);
     const tag = {};
-    tag[tagName] = tagInfo;
-    return tag;
+    return tagInfo;
   }
 
   readNodesFromJson(json) {
     const root = this.findRootNodeInJSON(json);
-    const tag = this.prepareTagFromObj(root);
-    this.readRelatedNodesFromNode(root, tag, json)
+    const rootName = root.type;
+    const rootInfo = this.prepareTagFromObj(root);
+    this.readRelatedNodesFromNode(root, rootInfo, json)
+    const tag = {};
+    tag[rootName] = rootInfo;
     return tag;
   }
 
@@ -136,10 +135,9 @@ class XMLTransformer {
       ignoreAttributes: false
     };
     const formatedObj = this.readNodesFromJson(obj);
-    console.log(formatedObj);
     const xml = xmlParser.json2xml(formatedObj, options);
-    // console.log(xml);
-    return xml;
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    return (header + xml);
   }
 
 }

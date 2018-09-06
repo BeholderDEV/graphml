@@ -17,6 +17,7 @@ router.get('/xml', async (req, res) => {
   const result = await graphController.getDatabase();
   graphController.prepareGraphJSON(result);
   const xml = transformer.transformIntoXML(result);
+  res.setHeader('content-type', 'application/xml');
   res.send(xml);
 });
 
