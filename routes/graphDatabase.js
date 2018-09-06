@@ -11,6 +11,15 @@ router.get('/', async (req, res) => {
   res.send(JSON.stringify(result));
 });
 
+router.get('/xml', async (req, res) => {
+  const graphController = new GraphController();
+  const transformer = new Transformer(); 
+  const result = await graphController.getDatabase();
+  graphController.prepareGraphJSON(result);
+  const xml = transformer.transformIntoXML(result);
+  res.send(xml);
+});
+
 router.post('/', async (req, res) => {
   console.log(req.headers['content-type']);
   if (req.is('application/xml')) {
