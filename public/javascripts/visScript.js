@@ -2,6 +2,33 @@ const colors = ['#0fcbaa', '#FFD123', '#6EEB83', '#FF5714', '#1BE7FF', '#C823FF'
 const maxLabelSize = 21;
 let originalNodes;
 let originalEdges;
+let currentNode;
+
+const findRelatedNodes = (nodesToDelete, node) => {
+  nodesToDelete.add(node.id);
+  const relatedEdges = originalEdges.filter(e => e.from === node.id);
+  relatedEdges.forEach(e => {
+    const relatedNodes = originalNodes.filter(n => n.id === e.to);
+    if (relatedNodes[0].type !== node.type) findRelatedNodes(nodesToDelete, relatedNodes[0]);
+  });
+};
+
+const deleteCurrentNode = async () => {
+  if (currentNode === undefined) {
+    return;
+  }
+  const nodesToDelete = new Set();
+  await findRelatedNodes(nodesToDelete, currentNode);
+  const nodes = [...nodesToDelete];
+  const response = await fetch("api/graph/", { method: 'DELETE', headers: { "Content-Type": "application/json" }, body: JSON.stringify({nodes})})
+  .then(response => response.json());
+  originalNodes = response.nodes;
+  originalEdges = response.edges;
+  console.log(response.nodes);
+  console.log(response.edges);
+  $('#modalNode').modal('hide'); 
+  prepareGraph(response);
+};
 
 const findNodeById = (id) => {
   console.log('entrou')
@@ -10,6 +37,7 @@ const findNodeById = (id) => {
 };
 
 const showNodeModal = (node) => {
+  currentNode = node;
   const infoKeys = Object.keys(node.info);
   let fullInfo = [];
   infoKeys.forEach(key => {
@@ -93,6 +121,7 @@ const prepareGraph = (graph) => {
 };
 
 $(document).ready(() => {
+  $("#deleteButton").on("click", deleteCurrentNode);
   $.get( "api/graph", function( response ) {
     let dados = jQuery.parseJSON(response)
     originalNodes = dados.nodes;

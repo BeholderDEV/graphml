@@ -30,10 +30,20 @@ class GraphDatabase {
     }
   }
   
-  async deleteNodes() {
+  async deleteDatabase() {
     const result = this.runNeo4jCommand('MATCH (n) DETACH DELETE n');
   }
   
+  async deleteNodes (nodesId) {
+    const result = await this.startConnection(async () => {
+      for (let i = 0; i < nodesId.length; i++) {
+        const deleteRes = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id DETACH DELETE n', {id: neo4j.int(nodesId[i])});
+      }
+      return 'Joinha'
+    });
+    return result;
+  }
+
   concateAttributes(command, attributes, concatNumber) {
     const attributesNames = Object.keys(attributes);
     attributesNames.forEach((att, i) => {
@@ -139,7 +149,7 @@ class GraphDatabase {
   async createGraph(nodes, deletePreviousNodes) {
     const relations = [];
     const result = await this.startConnection(async() => {
-      if(deletePreviousNodes) this.deleteNodes();
+      if(deletePreviousNodes) this.deleteDatabase();
       await this.createNodes(nodes, relations);
       await this.createRelations(relations);
       return 'success';

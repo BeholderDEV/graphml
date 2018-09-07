@@ -40,4 +40,16 @@ router.post('/', async (req, res) => {
   res.send(req.body);
 });
 
+router.delete('/', async (req, res) => {
+  if (req.body.nodes !== undefined) {
+    const graphController = new GraphController();
+    await graphController.deleteNodes(req.body.nodes);
+    const result = await graphController.getDatabase();
+    graphController.prepareGraphJSON(result);
+    res.send(JSON.stringify(result));
+    return;
+  }
+  res.send(JSON.stringify('No nodes found'));
+});
+
 module.exports = router;
