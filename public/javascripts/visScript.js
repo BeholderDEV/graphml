@@ -13,10 +13,26 @@ const findRelatedNodes = (nodesToDelete, node) => {
   });
 };
 
+const sendEdit = async () => {
+  console.log('Disparou');
+};
+
+const editCurrentNode = () => {
+  if (currentNode === undefined) return;
+  let formString = '<form onsubmit="sendEdit()"> <br>';
+  const infoKeys = Object.keys(currentNode.info);
+  infoKeys.forEach(key => {
+    formString += '<div class="form-group row"><label  name="' + key + 'Value" class="col-2 col-form-label">' + key[0].toUpperCase() + key.substring(1) + ':</label>';
+    formString += "<div class='col-10'><input class='form-control' type='text' name='" + key + "Value' value='" + currentNode.info[key] + "'></div></div>" 
+  });
+  formString += '<input class="btn btn-primary btn-block" type="submit" value="Submit"> <br> </form>';
+  // console.log(formString);
+  $('#modalBody').empty().append(formString);
+  $('#modalFooter').empty();
+};
+
 const deleteCurrentNode = async () => {
-  if (currentNode === undefined) {
-    return;
-  }
+  if (currentNode === undefined) return;
   const nodesToDelete = new Set();
   await findRelatedNodes(nodesToDelete, currentNode);
   const nodes = [...nodesToDelete];
@@ -122,6 +138,7 @@ const prepareGraph = (graph) => {
 
 $(document).ready(() => {
   $("#deleteButton").on("click", deleteCurrentNode);
+  $("#editButton").on("click", editCurrentNode);
   $.get( "api/graph", function( response ) {
     let dados = jQuery.parseJSON(response)
     originalNodes = dados.nodes;
