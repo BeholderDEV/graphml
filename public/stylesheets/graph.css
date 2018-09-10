@@ -26,48 +26,63 @@ body{
     margin: 0 auto;
     font-weight: bold;
 }
-
-
-
-circle.award {
-    stroke: #010a16;
-    stroke-width: 1;
+.modal-content{
+    background-color: #000f24 !important;
+    color: #fff;
 }
 
-circle.person {
-    stroke: purple;
-    stroke-width: 1;
+div.vis-network div.vis-close{
+    background-image: url('/images/close.png');
+    background-position: 0;
+    top: 5px;
 }
-.selected circle{
-    fill-opacity: 1;
-    stroke-width: 4;
-    stroke: purple;
+div.vis-network div.vis-manipulation{
+    background:rgba(255,255,255,0.1);
+    border: none;
+    padding: 7px;
+}
+div.vis-network div.vis-manipulation div{
+    background:#fff;
+}
+div.vis-network div.vis-edit-mode div.vis-label, div.vis-network div.vis-manipulation div.vis-label{
+    background: transparent;
+}
+table.legend_table {
+    font-size: 11px;
+    border-width:1px;
+    border-color:#d3d3d3;
+    border-style:solid;
+}
+table.legend_table,td {
+    border-width:1px;
+    border-color:#d3d3d3;
+    border-style:solid;
+    padding: 2px;
+}
+div.table_content {
+    width:80px;
+    text-align:center;
+}
+div.table_description {
+    width:100px;
 }
 
-.edge {
-    stroke-linecap: round;
-    stroke: #fff !important;
-    stroke-opacity: 1 !important;
-    stroke-width: 2;
+#operation {
+    font-size:28px;
 }
-
-.edge.NOMINATED {
-    stroke: purple;
-}
-
-.edge.RECEIVED {
-    stroke-dasharray: 10,5,2,2,2,5;
-    stroke: purple;
-    stroke-opacity: 1;
-}
-
-.edge.ACTED_IN {
-    stroke: purple;
-}
-
-.edge.selected {
-    stroke: purple;
-    stroke-opacity: 1;
-    stroke-dasharray: none;
+#network-popUp {
+    display:none;
+    position:absolute;
+    top:350px;
+    left:170px;
+    z-index:299;
+    width:250px;
+    height:120px;
+    background-color: #f9f9f9;
+    border-style:solid;
+    border-width:3px;
+    border-color: #5394ed;
+    padding:10px;
+    text-align: center;
 }
   
