@@ -25,11 +25,25 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="add-node" tabindex="-1" role="dialog" aria-labelledby="add-node" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalTitle">Adicionar Nodo</h4>
+        </div>
+        <div class="modal-body" id='modalBody'></div>
+        <div class="modal-footer" id='modalFooter'>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="upper-menu row">
     <div id="groups" class="col-md-6">
     </div>
     <div id="btns" class="col-md-6 text-right">
-      <a class="btn btn-primary" href="#"><i data-feather="plus"></i></a>
+      <a class="btn btn-primary" data-toggle="modal" data-target="#add-node"><i data-feather="plus"></i></a>
     </div>
     
 
