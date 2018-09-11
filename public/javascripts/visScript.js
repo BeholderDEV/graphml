@@ -13,22 +13,34 @@ const findRelatedNodes = (nodesToDelete, node) => {
   });
 };
 
-const sendEdit = async () => {
-  console.log('Disparou');
+const sendEdit = async (e) => {
+  e.preventDefault();
+  const formValues = $('form').serializeArray();
+  const editedNode = {};
+  formValues.forEach(v => {
+    editedNode[v.name] = v.value;
+  });
+  const response = await fetch("api/graph/", { method: 'PUT', headers: { "Content-Type": "application/json" }, body: JSON.stringify({id: currentNode.id, info: editedNode})})
+                         .then(response => response.json());
+  $('#modalEdit').modal('hide');
+  if (!!response.nodes) {
+    prepareGraph(response);
+  }
 };
 
 const editCurrentNode = () => {
   if (currentNode === undefined) return;
-  let formString = '<form onsubmit="sendEdit()"> <br>';
+  let formString = '<form onsubmit="sendEdit(event)"> <br>';
   const infoKeys = Object.keys(currentNode.info);
   infoKeys.forEach(key => {
-    formString += '<div class="form-group row"><label  name="' + key + 'Value" class="col-2 col-form-label">' + key[0].toUpperCase() + key.substring(1) + ':</label>';
-    formString += "<div class='col-10'><input class='form-control' type='text' name='" + key + "Value' value='" + currentNode.info[key] + "'></div></div>" 
+    formString += '<div class="form-group row"><label  name="' + key + '" class="col-2 col-form-label">' + key[0].toUpperCase() + key.substring(1) + ':</label>';
+    formString += "<div class='col-10'><input class='form-control' type='text' name='" + key + "' value='" + currentNode.info[key] + "'></div></div>" 
   });
   formString += '<input class="btn btn-primary btn-block" type="submit" value="Submit"> <br> </form>';
-  // console.log(formString);
-  $('#modalBody').empty().append(formString);
-  $('#modalFooter').empty();
+  $('#modalEditTitle').text(currentNode.type[0].toUpperCase() + currentNode.type.substring(1));
+  $('#modalEditBody').empty().append(formString);
+  $('#modalEdit').modal('show');
+  $('#modalNode').modal('hide'); 
 };
 
 const deleteCurrentNode = async () => {
@@ -38,16 +50,13 @@ const deleteCurrentNode = async () => {
   const nodes = [...nodesToDelete];
   const response = await fetch("api/graph/", { method: 'DELETE', headers: { "Content-Type": "application/json" }, body: JSON.stringify({nodes})})
   .then(response => response.json());
-  originalNodes = response.nodes;
-  originalEdges = response.edges;
-  console.log(response.nodes);
-  console.log(response.edges);
   $('#modalNode').modal('hide'); 
-  prepareGraph(response);
+  if (!!response.nodes) {
+    prepareGraph(response);
+  }
 };
 
 const findNodeById = (id) => {
-  console.log('entrou')
   const node = originalNodes.filter(n => n.id === id);
   return node[0];
 };
@@ -63,7 +72,7 @@ const showNodeModal = (node) => {
   $('#modalTitle').text(node.type[0].toUpperCase() + node.type.substring(1));
   $('#modalBody').empty().append('<p>' + fullInfo.join('') + '</p>');
   $('#modalNode').modal('show'); 
-}; 
+};
 
 const findOutTypes = (nodes) => {
   const types = new Set(nodes.map(n => n.type));
@@ -80,7 +89,7 @@ const receiveGraphData = async () => {
 const prepareNetworkInteraction = (network) => {
   network.on("click", function (params) {
     const nodeId = this.getNodeAt(params.pointer.DOM);
-    if (!!nodeId) {
+    if (nodeId !== undefined) {
       showNodeModal(findNodeById(nodeId));
     }
   });
@@ -104,6 +113,10 @@ function saveData(data,callback) {
 }
 
 const prepareGraph = (graph) => {
+  originalNodes = graph.nodes;
+  originalEdges = graph.edges;
+  console.log(graph.nodes);
+  console.log(graph.edges);
   const container = document.getElementById('mynetwork');
   const data = {
       nodes: graph.nodes,
@@ -180,10 +193,6 @@ $(document).ready(() => {
   $("#editButton").on("click", editCurrentNode);
   $.get( "api/graph", function( response ) {
     let dados = jQuery.parseJSON(response)
-    originalNodes = dados.nodes;
-    originalEdges = dados.edges;
-    console.log(dados.nodes);
-    console.log(dados.edges);
     prepareGraph(dados);
   });
 });

@@ -40,6 +40,18 @@ router.post('/', async (req, res) => {
   res.send(req.body);
 });
 
+router.put('/', async (req, res) => {
+  if (req.body.id !== undefined) {
+    const graphController = new GraphController();
+    await graphController.editNode(req.body.id, req.body.info);
+    const result = await graphController.getDatabase();
+    graphController.prepareGraphJSON(result);
+    res.send(JSON.stringify(result));
+    return;
+  }
+  res.send(JSON.stringify('No node to edit'));
+});
+
 router.delete('/', async (req, res) => {
   if (req.body.nodes !== undefined) {
     const graphController = new GraphController();

@@ -133,6 +133,17 @@ class GraphDatabase {
     }
   }
 
+  async editNode(id, info) {
+    const keys = Object.keys(info);
+    const result = await this.startConnection(async () => {
+      const command = 'UNWIND $props as properties Match (n) WHERE Id(n) = $id SET n = properties return n';
+      const values = {props: info, id: neo4j.int(id)};
+      const result = await this.runNeo4jCommand(command, values);
+      return result[0];
+    });
+    return result;
+  }
+
   async startConnection(cb){
     try {
       this.session = driver.session();
