@@ -4,6 +4,7 @@ let attrCounter = 0;
 let originalNodes;
 let originalEdges;
 let currentNode;
+let currentNewEdge;
 
 const findRelatedNodes = (nodesToDelete, node) => {
   nodesToDelete.add(node.id);
@@ -159,6 +160,49 @@ const addSpaceForAttr = () => {
   $('#rowAddAttr').show();
 };
 
+const startModalAddEdge = () => {
+  $('#modalEdgeTipo').val('');
+  $('#modalEdge').modal('show');
+};
+
+const checkValidEdge = (formValues) => {
+  if (formValues[0].value.trim() === '') {
+    alert('Escreva o Tipo');
+    return false;
+  }
+  const relation = originalEdges.filter(e => (e.to === currentNewEdge.to && e.from === currentNewEdge.from) || (e.to === currentNewEdge.from && e.from === currentNewEdge.to))
+  if (!!relation[0]){
+    alert('Não pode ter relações Duplicadas');
+    return false;
+  }
+  const nodeTo = originalNodes.filter(n => n.id === currentNewEdge.to);
+  if (nodeTo[0].info.codigo === undefined){
+    alert('Nodo Destino Preciso ter um atributo Código');
+    return false;
+  }
+  return true;
+}
+
+const sendEdge = async (event) => {
+  event.preventDefault();
+  const formValues = $('#formEdge').serializeArray();
+  if (!checkValidEdge(formValues)) return;
+  currentNewEdge.relation = formValues[0].value;
+  const response = await fetch("api/graph/edge", { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(currentNewEdge)})
+                               .then(response => response.json());
+  $('#modalEdge').modal('hide');
+  console.log(response);
+  if (!!response.nodes) {
+    prepareGraph(response);
+  }
+};
+
+const addEdge = (data) => {
+  if (data.from === data.to) return;
+  currentNewEdge = data;
+  startModalAddEdge();
+};
+
 const prepareGraph = (graph) => {
   originalNodes = graph.nodes;
   originalEdges = graph.edges;
@@ -175,17 +219,16 @@ const prepareGraph = (graph) => {
       addNode: (data, callback) => startModalAddNode(),
       deleteNode: false,
       editEdge: false,
-      addEdge: function (data, callback) {
-        if (data.from == data.to) {
-          var r = confirm("Do you want to connect the node to itself?");
-          if (r == true) {
-            callback(data);
-          }
-        }
-        else {
-          callback(data);
-        }
-      }
+      addEdge: (data, callback) => addEdge(data),
+      //   if (data.from == data.to) {
+      //     var r = confirm("Do you want to connect the node to itself?");
+      //     if (r == true) {
+      //       callback(data);
+      //     }
+      //   }
+      //   else {
+      //     callback(data);
+      //   }
     },
     physics: {
         forceAtlas2Based: {

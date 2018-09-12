@@ -75,6 +75,26 @@
     </div>
   </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalEdge" tabindex="-1" role="dialog" aria-labelledby="modalEdge" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalEdgeTitle">Adicionar Relação</h4>
+          </div>
+          <form id='formEdge' onsubmit="sendEdge(event)">
+            <div class="form-group row addRow" id=''>
+              <label  name="AddLabel" class="col-2 col-form-label">Tipo:</label>
+              <div class='col-10'>
+                <input class='form-control' id='modalEdgeTipo' type='text' name="tipo">
+              </div>
+            </div>
+            <input class="btn btn-primary btn-block" type="submit" value="Criar"> 
+          </form>
+        </div>
+      </div>
+    </div>
+
   <!-- <div class="upper-menu row">
     <div id="groups" class="col-md-6">
     </div>

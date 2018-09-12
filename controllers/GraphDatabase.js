@@ -255,6 +255,14 @@ class GraphDatabase {
     return result;
   }
 
+  async createNewEdge(edge) {
+    const result = await this.startConnection(async () => {
+      const res = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id1 MATCH (n2) WHERE Id(n2) = $id2 CREATE (n)-[rel:'+ edge.relation +']->(n2) return n', {id1: neo4j.int(edge.to), id2: neo4j.int(edge.from)});
+      return res[0];
+    });
+    return result;
+  }
+
   async ValidateNewNode(node) {
     const keys = Object.keys(node);
     let valid = true;

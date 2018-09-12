@@ -55,6 +55,15 @@ router.post('/node', async (req, res) => {
   res.send(JSON.stringify(result));
 });
 
+router.post('/edge', async (req, res) => {
+  const newEdge = req.body;
+  const graphController = new GraphController();
+  await graphController.createNewEdge(newEdge);
+  const result = await graphController.getDatabase();
+  graphController.prepareGraphJSON(result);
+  res.send(JSON.stringify(result));
+});
+
 router.put('/', async (req, res) => {
   if (req.body.id !== undefined) {
     const graphController = new GraphController();
