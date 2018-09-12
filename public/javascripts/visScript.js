@@ -1,5 +1,6 @@
 const colors = ['#9549A6', '#E13337', '#289456', '#509BCD', '#509BCD', '#7F9EB1'];
 const maxLabelSize = 21;
+let attrCounter = 0;
 let originalNodes;
 let originalEdges;
 let currentNode;
@@ -13,9 +14,17 @@ const findRelatedNodes = (nodesToDelete, node) => {
   });
 };
 
+const findRootNode = () => {
+  const rootNode = originalNodes.filter(n => {
+    const leafEdge = originalEdges.filter(e => n.id === e.to);
+    return (leafEdge[0] === undefined) ? true : false;
+  });
+  return rootNode[0];
+};
+
 const sendEdit = async (e) => {
   e.preventDefault();
-  const formValues = $('form').serializeArray();
+  const formValues = $('#formEdit').serializeArray();
   const editedNode = {};
   formValues.forEach(v => {
     editedNode[v.name] = v.value;
@@ -28,15 +37,55 @@ const sendEdit = async (e) => {
   }
 };
 
+const prepareNewNode = (formValues) => {
+  const newNode = {};
+  newNode.info = {};
+  for (let i = 0; i < formValues.length; i++) {
+    const v = formValues[i];
+    if(v.name.trim() === '' || v.value.trim() === '' ) {
+      alert('Campos Vazios');
+      return;
+    }
+    if (i <= 2) {
+      newNode.info[v.name] = v.value;
+      continue;
+    }
+    if (i > 2 && i % 2 === 0) {
+      newNode.info[formValues[i - 1].value] = v.value;
+    }
+  }
+  if (newNode.info['relatedNode'] === 'raiz'){
+    newNode.info['relatedNode'] = findRootNode().id.toString();
+    newNode.root = true;
+  } else {
+    newNode.root = false;
+  }
+  return newNode;
+};
+
+const sendAdd = async (e) => {
+  e.preventDefault();
+  console.log('Adding');
+  const formValues = $('#formAdd').serializeArray();
+  const newNode = prepareNewNode(formValues);
+  const response = await fetch("api/graph/node", { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({root: newNode.root, node: newNode.info})})
+                         .then(response => response.json());
+  $('#modalAdd').modal('hide');
+  console.log(response);
+  if (!!response.nodes) {
+    prepareGraph(response);
+  }
+};
+
 const editCurrentNode = () => {
   if (currentNode === undefined) return;
-  let formString = '<form onsubmit="sendEdit(event)"> <br>';
+  let formString = '<form id="formEdit" onsubmit="sendEdit(event)"> <br>';
   const infoKeys = Object.keys(currentNode.info);
   infoKeys.forEach(key => {
     formString += '<div class="form-group row"><label  name="' + key + '" class="col-2 col-form-label">' + key[0].toUpperCase() + key.substring(1) + ':</label>';
     formString += "<div class='col-10'><input class='form-control' type='text' name='" + key + "' value='" + currentNode.info[key] + "'></div></div>" 
   });
-  formString += '<input class="btn btn-primary btn-block" type="submit" value="Submit"> <br> </form>';
+  formString += '<input class="btn btn-primary btn-block" type="submit" value="Submit"> </form>';
   $('#modalEditTitle').text(currentNode.type[0].toUpperCase() + currentNode.type.substring(1));
   $('#modalEditBody').empty().append(formString);
   $('#modalEdit').modal('show');
@@ -94,23 +143,21 @@ const prepareNetworkInteraction = (network) => {
     }
   });
 };
-function clearPopUp() {
-  document.getElementById('saveButton').onclick = null;
-  document.getElementById('cancelButton').onclick = null;
-  document.getElementById('network-popUp').style.display = 'none';
-}
 
-function cancelEdit(callback) {
-  clearPopUp();
-  callback(null);
-}
+const startModalAddNode = () => {
+  $('#modalAddTipo').val('');
+  $('#modalAddNome').val('');
+  $('#selectParentNode').empty().append("<option class='ddindent' value='raiz'>Nenhum</option>");
+  originalNodes.forEach(n => $('#selectParentNode').append("<option class='ddindent' value='"+ n.id +"'>"+ n.type[0].toUpperCase() + n.type.substring(1) + ' - ' + n.label +"</option>"));
+  $('#rowAddAttr').empty().hide();
+  $('#modalAdd').modal('show');
+};
 
-function saveData(data,callback) {
-  data.id = document.getElementById('node-id').value;
-  data.label = document.getElementById('node-label').value;
-  clearPopUp();
-  callback(data);
-}
+const addSpaceForAttr = () => {
+  console.log('Adding Space');
+  $('#rowAddAttr').append('<div class="form-group row"><div class="col-2"><input  name="' + attrCounter +'" class="form-control"></div><div class="col-10"><input class="form-control" type="text" name="' + attrCounter + 'Value"></div></div>');
+  $('#rowAddAttr').show();
+};
 
 const prepareGraph = (graph) => {
   originalNodes = graph.nodes;
@@ -125,26 +172,9 @@ const prepareGraph = (graph) => {
   const options = {
     locale: 'pt-br',
     manipulation: {
-      addNode: function (data, callback) {
-        // filling in the popup DOM elements
-        console.log('add')
-        document.getElementById('operation').innerHTML = "Add Node";
-        document.getElementById('node-id').value = data.id;
-        document.getElementById('node-label').value = data.label;
-        document.getElementById('saveButton').onclick = saveData.bind(this, data, callback);
-        document.getElementById('cancelButton').onclick = clearPopUp.bind();
-        document.getElementById('network-popUp').style.display = 'block';
-      },
-      editNode: function (data, callback) {
-        // filling in the popup DOM elements
-        console.log('edit')
-        document.getElementById('operation').innerHTML = "Edit Node";
-        document.getElementById('node-id').value = data.id;
-        document.getElementById('node-label').value = data.label;
-        document.getElementById('saveButton').onclick = saveData.bind(this, data, callback);
-        document.getElementById('cancelButton').onclick = cancelEdit.bind(this,callback);
-        document.getElementById('network-popUp').style.display = 'block';
-      },
+      addNode: (data, callback) => startModalAddNode(),
+      deleteNode: false,
+      editEdge: false,
       addEdge: function (data, callback) {
         if (data.from == data.to) {
           var r = confirm("Do you want to connect the node to itself?");
@@ -191,6 +221,7 @@ const prepareGraph = (graph) => {
 $(document).ready(() => {
   $("#deleteButton").on("click", deleteCurrentNode);
   $("#editButton").on("click", editCurrentNode);
+  $("#addAttr").on("click", addSpaceForAttr);
   $.get( "api/graph", function( response ) {
     let dados = jQuery.parseJSON(response)
     prepareGraph(dados);

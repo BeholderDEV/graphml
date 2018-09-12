@@ -40,6 +40,21 @@ router.post('/', async (req, res) => {
   res.send(req.body);
 });
 
+router.post('/node', async (req, res) => {
+  const newNode = req.body;
+  const graphController = new GraphController();
+  const valideNode = await graphController.ValidateNewNode(newNode.node);
+  if (!valideNode){
+    console.log('Fail');
+    res.send(JSON.stringify('Failure'));
+    return;
+  }
+  await graphController.createNewNode(newNode.node, newNode.root);
+  const result = await graphController.getDatabase();
+  graphController.prepareGraphJSON(result);
+  res.send(JSON.stringify(result));
+});
+
 router.put('/', async (req, res) => {
   if (req.body.id !== undefined) {
     const graphController = new GraphController();

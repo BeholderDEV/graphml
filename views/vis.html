@@ -38,15 +38,39 @@
     </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="add-node" tabindex="-1" role="dialog" aria-labelledby="add-node" aria-hidden="true">
+  <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="modalTitle">Adicionar Nodo</h4>
+          <h4 class="modal-title" id="modalAddTitle">Adicionar Nodo</h4>
         </div>
-        <div class="modal-body" id='modalBody'></div>
-        <div class="modal-footer" id='modalFooter'>
-        </div>
+        <form id='formAdd' onsubmit="sendAdd(event)">
+          <div class="form-group row addRow">
+            <label  name="selectLabel" class="col-2 col-form-label">Parente:</label>
+            <div class='col-10'>
+              <select class='form-control' type='text' id='selectParentNode' name="relatedNode"></select>
+            </div>
+          </div>
+          <div class="form-group row addRow" id=''>
+            <label  name="AddLabel" class="col-2 col-form-label">Tipo:</label>
+            <div class='col-10'>
+              <input class='form-control' id='modalAddTipo' type='text' name="tipo">
+            </div>
+          </div>
+          <div class="form-group row addRow" id=''>
+            <label  name="AddLabel" class="col-2 col-form-label">Nome:</label>
+            <div class='col-10'>
+              <input class='form-control' id='modalAddNome' type='text' name="nome">
+            </div>
+          </div>
+          <div class="form-group row addRow" id='rowAddAttr'>
+
+          </div>
+          <div class="form-group row addRow">
+            <button type="button" id='addAttr' class="btn btn-primary btn-circle"><i data-feather="plus"></i></button>
+          </div>
+          <input class="btn btn-primary btn-block" type="submit" value="Criar"> 
+        </form>
       </div>
     </div>
   </div>

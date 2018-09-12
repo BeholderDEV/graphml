@@ -82,7 +82,6 @@ class GraphDatabase {
   }
   
   async relateNodes(node1, node2, relationName) {
-
     let command = 'MATCH (n:' + node1.name + ' {';
     command = this.concateAttributes(command, node1.attributes, 0) + '}) MATCH (n2:' + node2.name + ' {';
     command = this.concateAttributes(command, node2.attributes, 1) + '}) MERGE (n)-[rel:' + relationName + ']->(n2) return rel';
@@ -216,6 +215,64 @@ class GraphDatabase {
       edge.to = edge.target.low;
     });
   }
+
+  async createNewNode(node, root) {
+    const formatedNode = {};
+    formatedNode.attributes = {};
+    const keys = Object.keys(node);
+    keys.forEach(k => {
+      if (k === 'tipo') {
+        formatedNode.name = node[k].toLowerCase();
+        return;
+      }
+      if (k !== 'relatedNode') {
+        formatedNode.attributes[k] = node[k];
+      }
+    });
+    const result = (root) ? await this.createNewRoot(formatedNode, node.relatedNode): await this.createNewLeaf(formatedNode, node.relatedNode);
+    return result;
+  }
+
+  async createNewLeaf(node, rootId) {
+    const result = await this.startConnection(async () => {
+      const relatedNode = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id return n', {id: neo4j.int(rootId)});
+      node.root = {};
+      node.root.name = relatedNode[0].get('n').labels[0];
+      node.root.attributes = relatedNode[0].get('n').properties;
+      const res = await this.createNodeWithRoot(node, 'Possui');
+      return res[0];
+    });
+    return result;
+  }
+
+  async createNewRoot(node, oldRootId) {
+    const result = await this.startConnection(async () => {
+      const newRoot = await this.createNode(node);
+      const id = newRoot.get('n').identity.low;
+      const res = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id1 MATCH (n2) WHERE Id(n2) = $id2 CREATE (n)-[rel:Possui]->(n2) return n', {id1: neo4j.int(id), id2: neo4j.int(oldRootId)});
+      return res[0];
+    });
+    return result;
+  }
+
+  async ValidateNewNode(node) {
+    const keys = Object.keys(node);
+    let valid = true;
+    try {
+      keys.forEach(k => {
+        if (node[k].trim() === '') valid = false;  
+      });
+    } catch(err) {
+      return false;
+    }
+    const result = await this.startConnection(async () => {
+      const res = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id return n', {id: neo4j.int(node.relatedNode)});
+      return res[0];
+    });
+    valid = !!result;
+    return valid;
+  }
+
 }
 
 module.exports = GraphDatabase;
