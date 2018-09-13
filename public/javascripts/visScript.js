@@ -156,9 +156,17 @@ const startModalAddNode = () => {
 
 const addSpaceForAttr = () => {
   console.log('Adding Space');
-  $('#rowAddAttr').append('<div class="form-group row"><div class="col-2"><input  name="' + attrCounter +'" class="form-control"></div><div class="col-10"><input class="form-control" type="text" name="' + attrCounter + 'Value"></div></div>');
+  $('#rowAddAttr').append('<div class="form-group row" id="row' + attrCounter +'"><div class="col-2"><input  name="' + attrCounter +'" class="form-control"></div><div class="col-8"><input class="form-control" type="text" name="' + attrCounter + 'Value"></div> <div class="col-2"><button type="button" id="remove'+attrCounter+'" class="btn btn-primary btn-circle"><i data-feather="x"></i></button></div></div>');
   $('#rowAddAttr').show();
+  $("#remove"+attrCounter).click({param1: attrCounter}, removeAttr);
+  attrCounter++;
 };
+
+const removeAttr = (event) => {
+  console.log("removendo");
+  var attr = event.data.param1;
+  $('#row'+attr).remove();
+}
 
 const startModalAddEdge = () => {
   $('#modalEdgeTipo').val('');
