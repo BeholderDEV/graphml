@@ -105,13 +105,15 @@ const editCurrentNode = () => {
     formString += '<div class="form-group row"><label  name="' + key + '" class="col-2 col-form-label">' + key[0].toUpperCase() + key.substring(1) + ':</label>';
     formString += "<div class='col-10'><input class='form-control' type='text' name='" + key + "' value='" + currentNode.info[key] + "'></div></div>" 
   });
-  formString += '<div class="form-group row addRow" id="rowAddAttr"></div><div class="form-group row addRow"><button type="button" id="addAttrEdit" class="btn btn-primary btn-circle"><i data-feather="plus"></i></button></div>';
+  formString += '<div class="form-group row addRow" id="rowAddAttrEdit"></div><div class="form-group row addRow"><button type="button" id="addAttrEdit" class="btn btn-primary btn-circle"><i data-feather="plus"></i></button></div>';
   formString += '<input class="btn btn-primary btn-block" type="submit" value="Submit"> </form>';
   $('#modalEditTitle').text(currentNode.type[0].toUpperCase() + currentNode.type.substring(1));
   $('#modalEditBody').empty().append(formString);
   $('#modalEdit').modal('show');
+  $('#rowAddAttrEdit').hide();
   $('#modalNode').modal('hide');
-  $("#addAttrEdit").on("click", addSpaceForAttr); 
+  $("#addAttrEdit").click({row: '#rowAddAttrEdit'}, addSpaceForAttr);
+  feather.replace();
 };
 
 const deleteCurrentNode = async () => {
@@ -175,19 +177,22 @@ const startModalAddNode = () => {
   $('#modalAdd').modal('show');
 };
 
-const addSpaceForAttr = () => {
+const addSpaceForAttr = (event) => {
   console.log('Adding Space');
-  $('#rowAddAttr').append('<div class="form-group row" id="row' + attrCounter +'"><div class="col-2"><input  name="' + attrCounter +'" class="form-control"></div><div class="col-8"><input class="form-control" type="text" name="' + attrCounter + 'Value"></div> <div class="col-2"><button type="button" id="remove'+attrCounter+'" class="btn btn-primary btn-circle"><i data-feather="x"></i></button></div></div>');
-  $('#rowAddAttr').show();
-  $("#remove"+attrCounter).click({param1: attrCounter}, removeAttr);
+  console.log(event.data.row);
+  $(event.data.row).append('<div class="form-group row" id="row' + attrCounter +'"><div class="col-2"><input  name="' + attrCounter +'" class="form-control"></div><div class="col-8"><input class="form-control" type="text" name="' + attrCounter + 'Value"></div> <div class="col-2"><button type="button" id="remove'+attrCounter+'" class="btn btn-primary btn-circle"><i data-feather="x"></i></button></div></div>');
+  $(event.data.row).show();
+  $("#remove"+attrCounter).click({param1: attrCounter, row: event.data.row}, removeAttr);
   attrCounter++;
+  feather.replace();
 };
 
 const removeAttr = (event) => {
   console.log("removendo");
-  var attr = event.data.param1;
+  const attr = event.data.param1;
+  console.log(attr);
   $('#row'+attr).remove();
-}
+};
 
 const startModalAddEdge = () => {
   $('#modalEdgeTipo').val('');
@@ -206,7 +211,7 @@ const checkValidEdge = (formValues) => {
   }
   const nodeTo = originalNodes.filter(n => n.id === currentNewEdge.to);
   if (nodeTo[0].info.codigo === undefined){
-    alert('Nodo Destino Preciso ter um atributo Código');
+    alert('Nodo Destino precisa ter um atributo Código');
     return false;
   }
   return true;
@@ -217,6 +222,7 @@ const sendEdge = async (event) => {
   const formValues = $('#formEdge').serializeArray();
   if (!checkValidEdge(formValues)) return;
   currentNewEdge.relation = formValues[0].value;
+  console.log(currentNewEdge);
   const response = await fetch("api/graph/edge", { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(currentNewEdge)})
                                .then(response => response.json());
   $('#modalEdge').modal('hide');
@@ -228,6 +234,7 @@ const sendEdge = async (event) => {
 
 const addEdge = (data) => {
   if (data.from === data.to) return;
+  console.log(data);
   currentNewEdge = data;
   startModalAddEdge();
 };
@@ -248,16 +255,7 @@ const prepareGraph = (graph) => {
       addNode: (data, callback) => startModalAddNode(),
       deleteNode: false,
       editEdge: false,
-      addEdge: (data, callback) => addEdge(data),
-      //   if (data.from == data.to) {
-      //     var r = confirm("Do you want to connect the node to itself?");
-      //     if (r == true) {
-      //       callback(data);
-      //     }
-      //   }
-      //   else {
-      //     callback(data);
-      //   }
+      addEdge: (data, callback) => addEdge(data)
     },
     physics: {
         forceAtlas2Based: {
@@ -291,9 +289,10 @@ const prepareGraph = (graph) => {
 };
 
 $(document).ready(() => {
+  feather.replace();
   $("#deleteButton").on("click", deleteCurrentNode);
   $("#editButton").on("click", editCurrentNode);
-  $("#addAttr").on("click", addSpaceForAttr);
+  $("#addAttr").click({row: '#rowAddAttr'}, addSpaceForAttr);
   $.get( "api/graph", function( response ) {
     let dados = jQuery.parseJSON(response)
     prepareGraph(dados);

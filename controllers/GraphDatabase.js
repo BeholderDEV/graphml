@@ -108,7 +108,7 @@ class GraphDatabase {
       const rel = {node1: nodes[index - 1], node2: nodes[index + i], relationName: relation.name};
       relations.push(rel);
       i++;
-    } while (nodes[index + i].root === relation)
+    } while (nodes[index + i] !== undefined && nodes[index + i].root === relation)
     nodes.splice(index, i - 1);
   }
   
@@ -257,7 +257,7 @@ class GraphDatabase {
 
   async createNewEdge(edge) {
     const result = await this.startConnection(async () => {
-      const res = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id1 MATCH (n2) WHERE Id(n2) = $id2 CREATE (n)-[rel:'+ edge.relation +']->(n2) return n', {id1: neo4j.int(edge.to), id2: neo4j.int(edge.from)});
+      const res = await this.runNeo4jCommand('MATCH (n) WHERE Id(n) = $id1 MATCH (n2) WHERE Id(n2) = $id2 CREATE (n)-[rel:'+ edge.relation +']->(n2) return n', {id1: neo4j.int(edge.from), id2: neo4j.int(edge.to)});
       return res[0];
     });
     return result;
