@@ -26,16 +26,35 @@ const findRootNode = () => {
 const sendEdit = async (e) => {
   e.preventDefault();
   const formValues = $('#formEdit').serializeArray();
-  const editedNode = {};
-  formValues.forEach(v => {
-    editedNode[v.name] = v.value;
-  });
+  const editedNode = prepareEditedNode(formValues, $('#formEdit').find('label').length);
   const response = await fetch("api/graph/", { method: 'PUT', headers: { "Content-Type": "application/json" }, body: JSON.stringify({id: currentNode.id, info: editedNode})})
                          .then(response => response.json());
   $('#modalEdit').modal('hide');
   if (!!response.nodes) {
     prepareGraph(response);
   }
+};
+
+const prepareEditedNode = (formValues, labels) => {
+  const newNode = {};
+  for (let i = 0; i < formValues.length; i++) {
+    const v = formValues[i];
+    if(v.name.trim() === '' || v.value.trim() === '' ) {
+      alert('Campos Vazios');
+      return;
+    }
+    if (i < labels) {
+      newNode[v.name] = v.value;
+      continue;
+    }
+    if (labels % 2 === 1 && i >= labels && i % 2 === 0) {
+      newNode[formValues[i - 1].value] = v.value;
+    }
+    if (labels % 2 === 0 && i >= labels && i % 2 === 1) {
+      newNode[formValues[i - 1].value] = v.value;
+    }
+  }
+  return newNode;
 };
 
 const prepareNewNode = (formValues) => {
@@ -86,11 +105,13 @@ const editCurrentNode = () => {
     formString += '<div class="form-group row"><label  name="' + key + '" class="col-2 col-form-label">' + key[0].toUpperCase() + key.substring(1) + ':</label>';
     formString += "<div class='col-10'><input class='form-control' type='text' name='" + key + "' value='" + currentNode.info[key] + "'></div></div>" 
   });
+  formString += '<div class="form-group row addRow" id="rowAddAttr"></div><div class="form-group row addRow"><button type="button" id="addAttrEdit" class="btn btn-primary btn-circle"><i data-feather="plus"></i></button></div>';
   formString += '<input class="btn btn-primary btn-block" type="submit" value="Submit"> </form>';
   $('#modalEditTitle').text(currentNode.type[0].toUpperCase() + currentNode.type.substring(1));
   $('#modalEditBody').empty().append(formString);
   $('#modalEdit').modal('show');
-  $('#modalNode').modal('hide'); 
+  $('#modalNode').modal('hide');
+  $("#addAttrEdit").on("click", addSpaceForAttr); 
 };
 
 const deleteCurrentNode = async () => {
